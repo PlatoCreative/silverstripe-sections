@@ -1,0 +1,21 @@
+{
+    "name": "coreiho/silverstripe-sections",
+    "description": "Silverstripe sections",
+    "type": "silverstripe-module",
+    "keywords": ["silverstripe", "modular", "sections"],
+    "license": "BSD-3-Clause",
+    "authors": [
+    {
+        "name": "Gorrie Coe",
+        "email": "gorriecoe@gmail.com"
+    }
+    ],
+    "require":
+    {
+        "silverstripe/framework": "3.2.*",
+    	"silverstripe/cms": "3.2.*"
+    },
+    "extra": {
+        "installer-name": "silverstripe-sections"
+    }
+}

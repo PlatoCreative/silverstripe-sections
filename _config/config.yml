@@ -1,0 +1,9 @@
+---
+Name: silverstripe-sections
+After:
+  - 'framework/*'
+  - 'cms/*'
+---
+Page:
+  extensions:
+    - SectionPageExtension
