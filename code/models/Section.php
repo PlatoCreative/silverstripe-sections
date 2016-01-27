@@ -142,7 +142,8 @@ class Section extends DataObject {
         return false;
     }
 
-    public function Layout(){
+    public function Layout()
+    {
         $page = Director::get_current_page();
         $member = Member::currentUser();
         $access = Permission::checkMember($member, 'CMS_ACCESS');

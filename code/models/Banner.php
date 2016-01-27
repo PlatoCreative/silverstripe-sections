@@ -4,7 +4,7 @@
 *
 * @package sectionbanner
 */
-class SectionBanner extends DataObject {
+class Banner extends DataObject {
 
     private static $db = array(
         "AdminTitle" => "Varchar(50)",
@@ -19,10 +19,6 @@ class SectionBanner extends DataObject {
 
     private static $many_many = array(
         "Links" => "Link"
-    );
-
-    public static $belongs_many_many=array(
-        'BannerSection'=>'BannerSection'
     );
 
     private static $summary_fields = array(

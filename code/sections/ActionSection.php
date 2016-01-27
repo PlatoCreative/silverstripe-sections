@@ -1,5 +1,5 @@
 <?php
-class ChildrenSection extends Section
+class ActionSection extends Section
 {
     /**
      * Database fields

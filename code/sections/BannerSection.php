@@ -6,7 +6,7 @@ class BannerSection extends Section
      * @return array
      */
     private static $many_many = array(
-        "Banners" => "SectionBanner"
+        "Banners" => "Banner"
     );
 
     private static $many_many_extraFields = array(

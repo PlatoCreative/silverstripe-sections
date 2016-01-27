@@ -9,6 +9,12 @@ class ImageSection extends Section
         'Images' => 'Image'
     );
 
+    private static $many_many_extraFields = array(
+        'Images' => array(
+            'SortOrder' => 'Int'
+        )
+    );
+
     /**
      * CMS Fields
      * @return array
@@ -19,10 +25,9 @@ class ImageSection extends Section
         $fields->addFieldsToTab(
             "Root.Main",
             array(
-                UploadField::create(
+                SortableUploadField::create(
                     'Images',
-                    'Current Image(s)',
-                    $this->Images()
+                    'Current Image(s)'
                 )
             )
         );

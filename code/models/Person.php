@@ -1,5 +1,5 @@
 <?php
-class SectionPerson extends Dataobject
+class Person extends Dataobject
 {
     /**
      * Singular name for CMS

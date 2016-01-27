@@ -15,7 +15,7 @@ class TeamSection extends Section
     * @return array
     */
     private static $many_many = array(
-        'Team' => 'SectionPerson'
+        'Team' => 'Person'
     );
 
     private static $many_many_extraFields = array(
