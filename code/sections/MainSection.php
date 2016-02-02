@@ -11,6 +11,10 @@ class MainSection extends Section
     }
 
     public function AnchorAttr(){
-        return 'id="main' ;
+        return 'id="main';
+    }
+
+    public function getCMSFields() {
+        return false;
     }
 }
