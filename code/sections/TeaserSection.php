@@ -74,15 +74,20 @@ class TeaserSection extends Section
         return $fields;
     }
 
-    public function Children(){
-        $currentPage = Director::get_current_page();
-        return $this
-            ->ParentPage()
-            ->Children()
-            ->Exclude(
-                array(
-                    "ID" => $currentPage->ID
-                )
-            );
+    public function List(){
+        if($this->TeaserType == "Children"){
+            $currentPage = Director::get_current_page();
+            return $this
+                ->ParentPage()
+                ->Children()
+                ->Exclude(
+                    array(
+                        "ID" => $currentPage->ID
+                    )
+                );
+        }else{
+            return $this->TeaserList();
+        }
+
     }
 }
