@@ -24,10 +24,8 @@ class SectionPageExtension extends DataExtension
      * CMS Fields
      * @return FieldList
      */
-    function getCMSFields()
+    function updateCMSFields(FieldList $fields)
     {
-        $fields = parent::getCMSFields();
-
         $SectionGrid = GridFieldConfig_RelationEditor::create()
             ->removeComponentsByType('GridFieldAddNewButton')
             ->addComponent(new GridFieldAddNewMultiClass())
@@ -50,7 +48,7 @@ class SectionPageExtension extends DataExtension
             GridField::create(
                 'Sections',
                 'Current Section(s)',
-                $this->Sections(),
+                $this->owner->Sections(),
                 $SectionGrid
             )
         );
@@ -61,7 +59,7 @@ class SectionPageExtension extends DataExtension
     public function onAfterWrite()
     {
         parent::onAfterWrite();
-        if($this->Sections()->Count() == 0){
+        if($this->owner->Sections()->Count() == 0){
             $section = Section::get()
                 ->filter(
                     array(
@@ -70,13 +68,13 @@ class SectionPageExtension extends DataExtension
                 )
                 ->first();
             if ($section) {
-                $this->Sections()->add($section->ID);
+                $this->owner->Sections()->add($section->ID);
             }else{
                 $section = MainSection::create();
                 $section->AdminTitle = 'Placeholder for main content';
                 $section->Public = true;
                 $section->Write();
-                $this->Sections()->add($section);
+                $this->owner->Sections()->add($section);
             }
         }
     }
