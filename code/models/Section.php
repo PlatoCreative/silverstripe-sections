@@ -1,6 +1,6 @@
 <?php
-class Section extends DataObject {
-
+class Section extends DataObject
+{
     /**
      * Singular name for CMS
      * @return string
@@ -128,18 +128,27 @@ class Section extends DataObject {
         return 'No';
     }
 
-    public function Anchor(){
+    public function getAnchor(){
         if ($this->MenuTitle) {
             return strtolower(str_replace(' ','',$this->MenuTitle));
         }
         return false;
     }
 
-    public function AnchorAttr(){
+    public function getAnchorAttr(){
         if ($this->Anchor()) {
             return 'id="'.$this->Anchor().'"' ;
         }
         return false;
+    }
+
+    public function getClasses(){
+        $classes = array(
+            'section',
+            'section-'+$this->Type
+        );
+        $classes->extend('updateClasses', $classes);
+        return implode(' ',$classes);
     }
 
     public function Layout()
