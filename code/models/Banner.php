@@ -4,7 +4,8 @@
 *
 * @package sectionbanner
 */
-class Banner extends DataObject {
+class Banner extends DataObject
+{
 
     private static $db = array(
         "AdminTitle" => "Varchar(50)",
