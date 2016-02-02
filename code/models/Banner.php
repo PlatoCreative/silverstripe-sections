@@ -6,7 +6,10 @@
 */
 class Banner extends DataObject
 {
-
+    /**
+     * Database fields
+     * @return array
+     */
     private static $db = array(
         "AdminTitle" => "Varchar(50)",
         "Status" => "Boolean",
@@ -33,18 +36,18 @@ class Banner extends DataObject
     *
     * @return boolean
     */
-    // public function canEdit($member = null) {
-    //     return ($this->canEdit($member));
-    // }
+    public function canEdit($member = null) {
+        return ($this->canEdit($member));
+    }
 
     /**
     * @param Member $member
     *
     * @return boolean
     */
-    // public function canDelete($member = null) {
-    //     return ($this->canDelete($member));
-    // }
+    public function canDelete($member = null) {
+        return ($this->canDelete($member));
+    }
 
     public function getCMSFields() {
         $fields = new FieldList(
