@@ -33,9 +33,9 @@ class PeopleSection extends Section
         $fields = parent::getCMSFields();
 
         $PeopleConfig = GridFieldConfig_RecordEditor::create();
-		if ($this->People()->Count() > 0) {
-			$PeopleConfig->addComponent(new GridFieldOrderableRows());
-		}
+        if ($this->People()->Count() > 0) {
+            $PeopleConfig->addComponent(new GridFieldOrderableRows());
+        }
 
         $fields->addFieldsToTab(
             'Root.Main',
@@ -48,7 +48,7 @@ class PeopleSection extends Section
                 ),
                 GridField::create(
                     'People',
-                    'Current People',
+                    'Current People(s)',
                     $this->People(),
                     $PeopleConfig
                 )
