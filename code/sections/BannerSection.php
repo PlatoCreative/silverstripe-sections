@@ -23,11 +23,13 @@ class BannerSection extends Section
     {
         $fields = parent::getCMSFields();
 
-        $bannerGridConfig = GridFieldConfig_RelationEditor::create()
-            ->addComponent(new GridFieldOrderableRows());
+        $bannerGridConfig = GridFieldConfig_RelationEditor::create();
+        if ($this->Banners()->Count() > 0) {
+            $bannerGridConfig->addComponent(new GridFieldOrderableRows());
+        }
 
         $fields->addFieldToTab(
-            'Root.Banner',
+            'Root.Main',
             GridField::create(
                 'Banners',
                 'Banner',
