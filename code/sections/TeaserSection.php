@@ -7,7 +7,7 @@ class TeaserSection extends Section
      */
     private static $db = array(
         'Title' => 'Text',
-        'TeaserType' => 'Enum(array("List","Children"),"List")',
+        'TeaserType' => 'Enum(array("default",list","children"),"default")',
     );
 
     /**
@@ -54,40 +54,54 @@ class TeaserSection extends Section
                 DropdownField::create(
                     'TeaserType',
                     'Type',
-                    singleton('TeaserSection')
-                        ->dbObject('TeaserType')
-                        ->enumValues()
+                    array(
+                        "default" => "List all sub pages of this page",
+                        "children" => "Specify a page and list all its sub pages",
+                        "list" => "Specify each teaser"
+                    )
                 ),
-                TreeDropdownField::create(
-                    'ParentPageID',
-                    'Select a page',
-                    'SiteTree'
-                )->displayIf("TeaserType")->isEqualTo("Children")->end(),
-                GridField::create(
-                    'TeaserList',
-                    'Current Teaser(s)',
-                    $this->Teaser(),
-                    $TeaserConfig
-                )->displayIf("TeaserType")->isEqualTo("List")->end()
+                DisplayLogicWrapper::create(
+                    TreeDropdownField::create(
+                        'ParentPageID',
+                        'Select a page',
+                        'SiteTree'
+                    )
+                )->displayIf("TeaserType")->isEqualTo("children")->end(),
+                DisplayLogicWrapper::create(
+                    GridField::create(
+                        'TeaserList',
+                        'Current Teaser(s)',
+                        $this->TeaserList(),
+                        $TeaserConfig
+                    )
+                )->displayIf("TeaserType")->isEqualTo("list")->end()
             )
         );
         return $fields;
     }
 
-    public function List(){
-        if($this->TeaserType == "Children"){
-            $currentPage = Director::get_current_page();
-            return $this
-                ->ParentPage()
-                ->Children()
-                ->Exclude(
-                    array(
-                        "ID" => $currentPage->ID
-                    )
-                );
-        }else{
-            return $this->TeaserList();
+    public function ListTeasers()
+    {
+        switch ($this->TeaserType) {
+            case 'list':
+                return $this->TeaserList();
+                break;
+            case 'Children':
+                $currentPage = Director::get_current_page();
+                return $this
+                    ->ParentPage()
+                    ->Children()
+                    ->Exclude(
+                        array(
+                            "ID" => $currentPage->ID
+                        )
+                    );
+                break;
+            case 'default':
+            default:
+                $currentPage = Director::get_current_page();
+                return $currentPage->Children();
+                break;
         }
-
     }
 }
