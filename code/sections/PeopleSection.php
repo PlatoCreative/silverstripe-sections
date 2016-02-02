@@ -1,5 +1,5 @@
 <?php
-class TeamSection extends Section
+class PeopleSection extends Section
 {
     /**
      * Database fields
@@ -15,11 +15,11 @@ class TeamSection extends Section
     * @return array
     */
     private static $many_many = array(
-        'Team' => 'Person'
+        'People' => 'Person'
     );
 
     private static $many_many_extraFields = array(
-        'Team' => array(
+        'People' => array(
             'Sort' => 'Int'
         )
     );
@@ -32,9 +32,9 @@ class TeamSection extends Section
     {
         $fields = parent::getCMSFields();
 
-        $TeamConfig = GridFieldConfig_RecordEditor::create();
-		if ($this->Team()->Count() > 0) {
-			$TeamConfig->addComponent(new GridFieldOrderableRows());
+        $PeopleConfig = GridFieldConfig_RecordEditor::create();
+		if ($this->People()->Count() > 0) {
+			$PeopleConfig->addComponent(new GridFieldOrderableRows());
 		}
 
         $fields->addFieldsToTab(
@@ -47,10 +47,10 @@ class TeamSection extends Section
                     'Content'
                 ),
                 GridField::create(
-                    'Team',
+                    'People',
                     'Current People',
-                    $this->Team(),
-                    $TeamConfig
+                    $this->People(),
+                    $PeopleConfig
                 )
             )
         );
