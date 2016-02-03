@@ -31,24 +31,6 @@ class Banner extends DataObject
         "NiceStatus" => "Status"
     );
 
-    /**
-    * @param Member $member
-    *
-    * @return boolean
-    */
-    public function canEdit($member = null) {
-        return ($this->canEdit($member));
-    }
-
-    /**
-    * @param Member $member
-    *
-    * @return boolean
-    */
-    public function canDelete($member = null) {
-        return ($this->canDelete($member));
-    }
-
     public function getCMSFields() {
         $fields = new FieldList(
             OptionsetField::create(

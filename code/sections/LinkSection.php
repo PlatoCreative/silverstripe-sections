@@ -1,5 +1,5 @@
 <?php
-class TeaserSection extends Section
+class LinkSection extends Section
 {
     /**
      * Database fields
@@ -7,7 +7,7 @@ class TeaserSection extends Section
      */
     private static $db = array(
         'Title' => 'Text',
-        'TeaserType' => 'Enum(array("default",list","children"),"default")',
+        'LinkType' => 'Enum("currentchildren,specify,children", "currentchildren")'
     );
 
     /**
@@ -23,11 +23,11 @@ class TeaserSection extends Section
     * @return array
     */
     private static $many_many = array(
-        'TeaserList' => 'Teaser'
+        'LinkList' => 'Teaser'
     );
 
     private static $many_many_extraFields = array(
-        'TeaserList' => array(
+        'LinkList' => array(
             'Sort' => 'Int'
         )
     );
@@ -41,7 +41,7 @@ class TeaserSection extends Section
         $fields = parent::getCMSFields();
 
         $TeaserConfig = GridFieldConfig_RecordEditor::create();
-        if ($this->TeaserList()->Count() > 0) {
+        if ($this->LinkList()->Count() > 0) {
             $TeaserConfig->addComponent(new GridFieldOrderableRows());
         }
 
@@ -52,12 +52,12 @@ class TeaserSection extends Section
                     'Title'
                 )->setRows(1),
                 DropdownField::create(
-                    'TeaserType',
+                    'LinkType',
                     'Type',
                     array(
-                        "default" => "List all sub pages of this page",
+                        "currentchildren" => "List all sub pages of this page",
                         "children" => "Specify a page and list all its sub pages",
-                        "list" => "Specify each teaser"
+                        "specify" => "Specify each link"
                     )
                 ),
                 DisplayLogicWrapper::create(
@@ -66,27 +66,27 @@ class TeaserSection extends Section
                         'Select a page',
                         'SiteTree'
                     )
-                )->displayIf("TeaserType")->isEqualTo("children")->end(),
+                )->displayIf("LinkType")->isEqualTo("children")->end(),
                 DisplayLogicWrapper::create(
                     GridField::create(
-                        'TeaserList',
+                        'LinkList',
                         'Current Teaser(s)',
-                        $this->TeaserList(),
+                        $this->LinkList(),
                         $TeaserConfig
                     )
-                )->displayIf("TeaserType")->isEqualTo("list")->end()
+                )->displayIf("LinkType")->isEqualTo("list")->end()
             )
         );
         return $fields;
     }
 
-    public function ListTeasers()
+    public function ListLinks()
     {
-        switch ($this->TeaserType) {
-            case 'list':
-                return $this->TeaserList();
+        switch ($this->LinkType) {
+            case 'specify':
+                return $this->LinkList();
                 break;
-            case 'Children':
+            case 'children':
                 $currentPage = Director::get_current_page();
                 return $this
                     ->ParentPage()
@@ -97,7 +97,7 @@ class TeaserSection extends Section
                         )
                     );
                 break;
-            case 'default':
+            case 'currentchildren':
             default:
                 $currentPage = Director::get_current_page();
                 return $currentPage->Children();

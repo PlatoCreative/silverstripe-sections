@@ -1,8 +1,13 @@
-<section class='{$Classes}'{$AnchorAttr}>
+<main id="main" class="main" role="main" tabindex="3">
+	test
+	$AnchorAttr
+	$Anchor
 	<% if Title %>
-	<h2 class='title'>
-		$Title
-	</h2>
+	<header class="header" >
+		<h1 class='title'>
+			$Title
+		</h1>
+	</header>
 	<% end_if %>
 	<% if Content %>
 	<div class='content'>
@@ -14,4 +19,4 @@
 		$Form
 	</div>
 	<% end_if %>
-</section>
+</main>

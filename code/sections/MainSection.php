@@ -6,15 +6,18 @@
 
 class MainSection extends Section
 {
-    public function Anchor(){
-        return 'main';
-    }
-
-    public function AnchorAttr(){
-        return 'id="main';
-    }
-
     public function getCMSFields() {
         return false;
+    }
+
+    public function Layout()
+    {
+        $page = Director::get_current_page();
+        $member = Member::currentUser();
+        $access = Permission::checkMember($member, 'CMS_ACCESS');
+        $sectionType = get_called_class();
+        if($this->Public || $access){
+            return $page->renderWith($this->Render());
+        }
     }
 }

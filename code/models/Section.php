@@ -20,7 +20,8 @@ class Section extends DataObject
     private static $db = array(
         'AdminTitle' => 'Varchar(30)',
         'MenuTitle' => 'Varchar(30)',
-        'Public' => 'Boolean'
+        'Public' => 'Boolean',
+        'Style' => 'Text'
     );
 
     /**
@@ -45,7 +46,10 @@ class Section extends DataObject
                         'AdminTitle',
                         'Admin title'
                     )
-                    ->setDescription('This field is for adminisration use only and will not display on the site.'),
+                    ->setDescription('This field is for adminisration use only and will not display on the site.')
+                ),
+                $tabSettings = new Tab(
+                    'Settings',
                     TextField::create(
                         'MenuTitle',
                         'Menu title'
@@ -55,7 +59,13 @@ class Section extends DataObject
                         'Public',
                         1
                     )
-                    ->setDescription('Is this section publicly accessible?.')
+                    ->setDescription('Is this section publicly accessible?.'),
+                    DropdownField::create(
+                        'Style',
+                        'Select a style',
+                        $this->ConfigStyles
+                    )
+                    ->setEmptyString('Default')
                 )
             )
         );
@@ -67,8 +77,7 @@ class Section extends DataObject
      */
     public static $summary_fields = array(
         'AdminTitle' => 'Title',
-        'NiceType' => 'Type',
-        'NicePublic' => 'Public'
+        'Type' => 'Type'
     );
 
     /**
@@ -110,60 +119,75 @@ class Section extends DataObject
         return Permission::check('CMS_ACCESS_CMSMain', 'any', $member);
     }
 
-    public static function Type(){
-        return get_called_class();
+    public function getConfigStyles(){
+        $config_styles = Config::inst()->get(get_called_class(), 'styles');
+        if ($config_styles) {
+            foreach ($config_styles as $value) {
+                $styles[$value] = preg_replace('/([a-z]+)([A-Z0-9])/', '$1 $2', $value);
+            }
+            return $styles;
+        }
+        return false;
     }
 
-    public static function NiceType($ClassName = NULL){
+    public static function Type($ClassName = NULL){
         if (!$ClassName) {
             $ClassName = get_called_class();
         }
         return trim(preg_replace('/([A-Z])/', ' $1', str_ireplace('Section', '', $ClassName)));
     }
 
-    public function NicePublic(){
-        if ($this->Public) {
-            return 'Yes';
-        }
-        return 'No';
-    }
-
-    public function getAnchor(){
+    public function Anchor(){
         if ($this->MenuTitle) {
             return strtolower(str_replace(' ','',$this->MenuTitle));
+        }else{
+            return $this->Type.$this->ID;
         }
         return false;
     }
 
-    public function getAnchorAttr(){
+    public function AnchorAttr(){
         if ($this->Anchor()) {
-            return 'id="'.$this->Anchor().'"' ;
+            return ' id="'.$this->Anchor().'"';
         }
         return false;
     }
 
-    public function getClasses(){
+    public function Classes(){
         $classes = array(
             'section',
-            'section-'+$this->Type
+            strtolower(preg_replace('/([a-z]+)([A-Z0-9])/', '$1-$2', get_called_class()))
         );
-        $classes->extend('updateClasses', $classes);
+        if ($this->Style) {
+            $classes[] = $this->Style.'-section';
+        }
         return implode(' ',$classes);
+    }
+
+    public function ClassAttr(){
+        return 'class="'.$this->Classes().'"';
+    }
+
+    public function Render(){
+        $page = Director::get_current_page();
+        $style = ($this->Style ? '_'.$this->Style : '');
+        $pageType = ($page->ClassName ? '_'.$page->ClassName : '');
+        $sectionType = get_called_class();
+        return array(
+            $sectionType.$pageType.$style,
+            $sectionType.$style,
+            $sectionType.$pageType,
+            $sectionType,
+            'DefaultSection'
+        );
     }
 
     public function Layout()
     {
-        $page = Director::get_current_page();
         $member = Member::currentUser();
         $access = Permission::checkMember($member, 'CMS_ACCESS');
-        $sectionType = get_called_class();
         if($this->Public || $access){
-            $renderWith = array(
-                $sectionType.'_'.$page->ClassName,
-                $sectionType,
-                'DefaultSection'
-            );
-            return $this->renderWith($renderWith);
+            return $this->renderWith($this->Render());
         }
     }
 }

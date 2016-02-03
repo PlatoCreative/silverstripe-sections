@@ -1,4 +1,4 @@
-<div class='{$Classes}'{$AnchorAttr}>
+<div {$ClassAttr}{$AnchorAttr}>
 	<blockquote class='section blockquote'>
 		<% if Quote %>
 		<p class="quote">

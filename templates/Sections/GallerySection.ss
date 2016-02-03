@@ -1,4 +1,4 @@
-<section class='{$Classes}'{$AnchorAttr}>
+<section {$ClassAttr}{$AnchorAttr}>
 	<% loop Images %>
 		<img src="{$Fill(200, 200).URL}" alt="{$Title}" />
 	<% end_loop %>

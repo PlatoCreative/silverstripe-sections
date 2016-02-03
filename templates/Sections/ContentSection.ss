@@ -1,10 +1,8 @@
-<main class='{$Classes}' id="main" role="main" tabindex="3">
+<section {$ClassAttr}{$AnchorAttr}>
 	<% if Title %>
-	<header class="header" >
-		<h1 class='title'>
-			$Title
-		</h1>
-	</header>
+	<h2 class='title'>
+		$Title
+	</h2>
 	<% end_if %>
 	<% if Content %>
 	<div class='content'>
@@ -16,4 +14,4 @@
 		$Form
 	</div>
 	<% end_if %>
-</main>
+</section>
