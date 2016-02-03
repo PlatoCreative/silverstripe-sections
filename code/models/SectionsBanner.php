@@ -1,12 +1,15 @@
 <?php
 /**
-* Teaser
+* Banner
 *
 * @package sectionbanner
 */
-class Teaser extends DataObject
+class SectionsBanner extends DataObject
 {
-
+    /**
+     * Database fields
+     * @return array
+     */
     private static $db = array(
         "AdminTitle" => "Varchar(50)",
         "Status" => "Boolean",
@@ -27,24 +30,6 @@ class Teaser extends DataObject
         "AdminTitle" => "Title",
         "NiceStatus" => "Status"
     );
-
-    /**
-    * @param Member $member
-    *
-    * @return boolean
-    */
-    public function canEdit($member = null) {
-        return ($this->canEdit($member));
-    }
-
-    /**
-    * @param Member $member
-    *
-    * @return boolean
-    */
-    public function canDelete($member = null) {
-        return ($this->canDelete($member));
-    }
 
     public function getCMSFields() {
         $fields = new FieldList(

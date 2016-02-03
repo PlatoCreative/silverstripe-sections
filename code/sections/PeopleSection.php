@@ -15,7 +15,7 @@ class PeopleSection extends Section
     * @return array
     */
     private static $many_many = array(
-        'People' => 'Person'
+        'People' => 'SectionsPerson'
     );
 
     private static $many_many_extraFields = array(

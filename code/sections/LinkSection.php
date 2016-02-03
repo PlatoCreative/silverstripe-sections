@@ -23,7 +23,7 @@ class LinkSection extends Section
     * @return array
     */
     private static $many_many = array(
-        'LinkList' => 'Teaser'
+        'LinkList' => 'SectionsTeaser'
     );
 
     private static $many_many_extraFields = array(
