@@ -37,7 +37,7 @@ class SectionPageExtension extends DataExtension
         $SectionSubClasses = ClassInfo::subclassesfor('Section');
         unset($SectionSubClasses['Section'], $SectionSubClasses['MainSection']);
         foreach ($SectionSubClasses as $key => $value) {
-            $SectionSubClasses[$key] = Section::NiceType($value);
+            $SectionSubClasses[$key] = Section::Type($value);
         }
 
         $SectionGrid->getComponentByType('GridFieldAddNewMultiClass')
@@ -77,5 +77,9 @@ class SectionPageExtension extends DataExtension
                 $this->owner->Sections()->add($section);
             }
         }
+    }
+
+    public function Sections(){
+        // return $this->Sections()->renderWith('Sections');
     }
 }

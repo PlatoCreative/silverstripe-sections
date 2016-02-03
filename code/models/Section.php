@@ -127,7 +127,7 @@ class Section extends DataObject
             }
             return $styles;
         }
-        return false;
+        return array();
     }
 
     public static function Type($ClassName = NULL){
@@ -159,7 +159,7 @@ class Section extends DataObject
             strtolower(preg_replace('/([a-z]+)([A-Z0-9])/', '$1-$2', get_called_class()))
         );
         if ($this->Style) {
-            $classes[] = $this->Style.'-section';
+            $classes[] = strtolower($this->Style).'-section';
         }
         return implode(' ',$classes);
     }
@@ -170,12 +170,12 @@ class Section extends DataObject
 
     public function Render(){
         $page = Director::get_current_page();
-        $style = ($this->Style ? '_'.$this->Style : '');
+        $styleType = ($this->Style ? '_'.$this->Style : '');
         $pageType = ($page->ClassName ? '_'.$page->ClassName : '');
         $sectionType = get_called_class();
         return array(
-            $sectionType.$pageType.$style,
-            $sectionType.$style,
+            $sectionType.$pageType.$styleType,
+            $sectionType.$styleType,
             $sectionType.$pageType,
             $sectionType,
             'DefaultSection'
