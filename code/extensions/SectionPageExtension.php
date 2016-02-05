@@ -7,6 +7,14 @@
 class SectionPageExtension extends DataExtension
 {
     /**
+     * Has_one relationship
+     * @return array
+     */
+    private static $has_one = array(
+        "PreviewImage" => "Image"
+    );
+
+    /**
      * Has_many relationship
      * @return array
      */
@@ -50,6 +58,14 @@ class SectionPageExtension extends DataExtension
                 'Current Section(s)',
                 $this->owner->Sections(),
                 $SectionGrid
+            )
+        );
+
+        $fields->addFieldToTab(
+            'Root.Preview',
+            UploadField::create(
+                'PreviewImage',
+                'Preview image'
             )
         );
 

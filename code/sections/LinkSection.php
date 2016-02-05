@@ -23,7 +23,7 @@ class LinkSection extends Section
     * @return array
     */
     private static $many_many = array(
-        'LinkList' => 'SectionsTeaser'
+        'LinkList' => 'SectionsLink'
     );
 
     private static $many_many_extraFields = array(
@@ -70,11 +70,11 @@ class LinkSection extends Section
                 DisplayLogicWrapper::create(
                     GridField::create(
                         'LinkList',
-                        'Current Teaser(s)',
+                        'Current Link(s)',
                         $this->LinkList(),
                         $TeaserConfig
                     )
-                )->displayIf("LinkType")->isEqualTo("list")->end()
+                )->displayIf("LinkType")->isEqualTo("specify")->end()
             )
         );
         return $fields;

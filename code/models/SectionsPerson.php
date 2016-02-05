@@ -21,6 +21,8 @@ class SectionsPerson extends Dataobject
         "Name" => "Text",
         "Title" => "Text",
         "Email" => "Text",
+        "Phone" => "Text",
+        "Mobile" => "Text",
         "Description" => "HTMLText"
     );
 
@@ -53,6 +55,12 @@ class SectionsPerson extends Dataobject
                 ),
                 TextField::create(
                     'Email'
+                ),
+                TextField::create(
+                    'Phone'
+                ),
+                TextField::create(
+                    'Mobile'
                 ),
                 HTMLEditorField::create(
                     'Description'

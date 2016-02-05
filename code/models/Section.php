@@ -154,12 +154,11 @@ class Section extends DataObject
     }
 
     public function Classes(){
-        $classes = array(
-            'section',
-            strtolower(preg_replace('/([a-z]+)([A-Z0-9])/', '$1-$2', get_called_class()))
-        );
+        $classes = array('section');
         if ($this->Style) {
-            $classes[] = strtolower($this->Style).'-section';
+            $classes[] = strtolower($this->Style).'-'.strtolower(preg_replace('/([a-z]+)([A-Z0-9])/', '$1-$2', get_called_class()));
+        }else{
+            $classes[] = strtolower(preg_replace('/([a-z]+)([A-Z0-9])/', '$1-$2', get_called_class()));
         }
         return implode(' ',$classes);
     }

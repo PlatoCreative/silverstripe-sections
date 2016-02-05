@@ -16,3 +16,10 @@ LinkSection:
     - Layout1
     - Layout2
 ```
+
+SectionType_PageType_Style.ss
+SectionType_Style.ss
+SectionType_PageType.ss
+SectionType.ss
+
+Example LinkSection_HomePage

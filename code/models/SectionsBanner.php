@@ -7,6 +7,18 @@
 class SectionsBanner extends DataObject
 {
     /**
+     * Singular name for CMS
+     * @return string
+     */
+    private static $singular_name = 'Banner';
+
+    /**
+     * Plural name for CMS
+     * @return string
+     */
+    private static $plural_name = 'Banners';
+
+    /**
      * Database fields
      * @return array
      */
@@ -25,6 +37,12 @@ class SectionsBanner extends DataObject
         "Links" => "Link"
     );
 
+    private static $many_many_extraFields = array(
+        'Links' => array(
+            'Sort' => 'Int'
+        )
+    );
+
     private static $summary_fields = array(
         "Image.CMSThumbnail" => "Image",
         "AdminTitle" => "Title",
@@ -32,33 +50,42 @@ class SectionsBanner extends DataObject
     );
 
     public function getCMSFields() {
-        $fields = new FieldList(
-            OptionsetField::create(
-                'Status',
-                'Status',
-                array(
-                    "1" => "Active",
-                    "0" => "Disabled"
+        $linksGridConfig = GridFieldConfig_RelationEditor::create();
+        if ($this->Links()->Count() > 0) {
+            $linksGridConfig->addComponent(new GridFieldOrderableRows());
+        }
+
+        $fields = parent::getCMSFields();
+        $fields->addFieldsToTab(
+            "Root.Main",
+            array(
+                OptionsetField::create(
+                    'Status',
+                    'Status',
+                    array(
+                        "1" => "Active",
+                        "0" => "Disabled"
+                    ),
+                    1
                 ),
-                1
-            ),
-            TextField::create(
-                'AdminTitle'
-            )->setDescription(""),
-            TextareaField::create(
-                'Title',
-                'Title'
+                TextField::create(
+                    'AdminTitle'
+                )
+                ->setDescription('This field is for adminisration use only and will not display on the site.'),
+                TextareaField::create(
+                    'Title',
+                    'Title'
+                )
+                ->setRows(2),
+                TextareaField::create(
+                    'Content',
+                    'Content'
+                ),
+                UploadField::create(
+                    'Image',
+                    'Image'
+                )
             )
-                ->setRows(2)
-                ->setDescription(""),
-            TextareaField::create(
-                'Content',
-                'Content'
-            )->setDescription(""),
-            UploadField::create(
-                'Image',
-                'Image'
-            )->setFolderName("Banner")
         );
         return $fields;
     }

@@ -1,4 +1,4 @@
-<main id="main" class="main" role="main" tabindex="3">
+<main id="main" class="main-section" role="main" tabindex="3">
 	test
 	$AnchorAttr
 	$Anchor
