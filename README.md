@@ -8,18 +8,37 @@ composer require coreiho/silverstripe-sections 1.*
 ```
 
 ### Customisation
-#### Templating
-For each section type, you can define additional templates in your config.yml
-```
+#### Styles
+For each section type, you can define additional styles in your config.yml.
+``` yml
 LinkSection:
   styles:
     - Layout1
     - Layout2
 ```
+This will provide optional classes for each section type to choose from in the CMS.
 
-SectionType_PageType_Style.ss
-SectionType_Style.ss
-SectionType_PageType.ss
-SectionType.ss
+#### Templating
+Below is the template hierarchy.
+* SectionType_PageType_Style.ss
+* SectionType_Style.ss
+* SectionType_PageType.ss
+* SectionType.ss
 
-Example LinkSection_HomePage
+Example LinkSection_HomePage.ss or LinkSection_Layout1.ss
+
+#### Limit or exclude sections
+You can limit or completely exclude sections from a page type by defining it in your config.yml
+``` yml
+HomePage:
+  LimitSectionTypes:
+    BannerSection: 0
+    LinkSection: 0
+    PeopleSection: 1
+```
+
+Limiting the total sections a page in your config.yml
+``` yml
+HomePage:
+  LimitSectionTotal: 3
+```

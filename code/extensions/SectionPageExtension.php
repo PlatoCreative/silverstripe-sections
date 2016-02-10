@@ -48,8 +48,33 @@ class SectionPageExtension extends DataExtension
             $SectionSubClasses[$key] = Section::Type($value);
         }
 
+        # Limit sections based on type
+        $LimitSectionTypes = Config::inst()->get($this->owner->ClassName, 'LimitSectionTypes');
+        // debug::dump($LimitSectionTypes);
+        foreach ($LimitSectionTypes as $type => $value) {
+            if ($value == 0) {
+                unset($SectionSubClasses[$type]);
+                continue;
+            }
+            $CurrentSectionCount = $this->owner->Sections()->filter('ClassName', $type)->count();
+            if ($CurrentSectionCount >= $value) {
+                unset($SectionSubClasses[$type]);
+                continue;
+            }
+        }
+
         $SectionGrid->getComponentByType('GridFieldAddNewMultiClass')
         ->setClasses($SectionSubClasses);
+
+        # Limit total sections
+        $LimitSectionTotal = Config::inst()->get($this->owner->ClassName, 'LimitSectionTotal');
+        // debug::dump($PageLimits);
+        if (isset($LimitSectionTotal) && $this->owner->Sections()->Count() >= $LimitSectionTotal) {
+            // remove the buttons if we don't want to allow more records to be added/created
+            $SectionGrid->removeComponentsByType('GridFieldAddNewButton');
+            $SectionGrid->removeComponentsByType('GridFieldAddExistingAutocompleter');
+            $SectionGrid->removeComponentsByType('GridFieldAddNewMultiClass');
+        }
 
         $fields->addFieldToTab(
             'Root.Section',
