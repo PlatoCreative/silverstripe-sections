@@ -20,12 +20,10 @@ This will provide optional classes for each section type to choose from in the C
 
 #### Templating
 Below is the template hierarchy.
-* SectionType_PageType_Style.ss
-* SectionType_Style.ss
-* SectionType_PageType.ss
-* SectionType.ss
-
-Example LinkSection_HomePage.ss or LinkSection_Layout1.ss
+* SectionType_PageType_Style.ss e.g. LinkSection_HomePage_Tiles.ss
+* SectionType_Style.ss  e.g. LinkSection_Tiles.ss
+* SectionType_PageType.ss e.g. BannerSection_HomePage.ss
+* SectionType.ss e.g. GallerySection.ss
 
 #### Limit or exclude sections
 You can limit or completely exclude sections from a page type by defining it in your config.yml
