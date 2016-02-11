@@ -34,10 +34,15 @@ class SectionPageExtension extends DataExtension
      */
     function updateCMSFields(FieldList $fields)
     {
+        if (!Permission::check("VIEW_SECTIONS")) {
+            return $fields;
+        }
+
         $SectionGrid = GridFieldConfig_RelationEditor::create()
             ->removeComponentsByType('GridFieldAddNewButton')
             ->addComponent(new GridFieldAddNewMultiClass())
             ->addComponent(new GridFieldOrderableRows());
+
         $SectionGrid->getComponentByType('GridFieldAddExistingAutocompleter')
             ->setSearchFields(array('AdminTitle'))
             ->setResultsFormat('$AdminTitle');
@@ -50,6 +55,7 @@ class SectionPageExtension extends DataExtension
 
         # Limit sections based on type
         $LimitSectionTypes = Config::inst()->get($this->owner->ClassName, 'LimitSectionTypes');
+        // debug::dump($LimitSectionTypes);
         if ($LimitSectionTypes) {
             foreach ($LimitSectionTypes as $type => $value) {
                 if ($value == 0) {
@@ -75,6 +81,18 @@ class SectionPageExtension extends DataExtension
             $SectionGrid->removeComponentsByType('GridFieldAddNewButton');
             $SectionGrid->removeComponentsByType('GridFieldAddExistingAutocompleter');
             $SectionGrid->removeComponentsByType('GridFieldAddNewMultiClass');
+        }
+
+        if (!Permission::check("LINK_SECTIONS")) {
+            $SectionGrid->removeComponentsByType('GridFieldAddExistingAutocompleter');
+        }
+
+        if (!Permission::check("REORDER_SECTIONS")) {
+            $SectionGrid->removeComponentsByType('GridFieldOrderableRows');
+        }
+
+        if (!Permission::check("UNLINK_SECTIONS")) {
+            $SectionGrid->removeComponentsByType('GridFieldDeleteAction');
         }
 
         $fields->addFieldToTab(
