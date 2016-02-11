@@ -1,5 +1,5 @@
 <?php
-class Section extends DataObject
+class Section extends DataObject implements PermissionProvider
 {
     /**
      * Singular name for CMS
@@ -88,11 +88,57 @@ class Section extends DataObject
         'AdminTitle'
     );
 
+
+    /**
+     * Permissions
+     * @return array
+     */
+    public function providePermissions() {
+        return array(
+            "VIEW_SECTIONS" => array(
+                'name' => 'View any sections',
+                'help' => 'Allow users to view any sections on a page',
+                'category' => 'Sections',
+                'sort' => 88
+            ),
+            "CREATE_SECTIONS" => array(
+                'name' => 'Create sections',
+                'help' => 'Allow users to create new sections on pages',
+                'category' => 'Sections',
+                'sort' => 90
+            ),
+            "EDIT_SECTIONS" => array(
+                'name' => 'Edit sections',
+                'help' => 'Allow users to edit existing sections',
+                'category' => 'Sections',
+                'sort' => 92
+            ),
+            "DELETE_SECTIONS" => array(
+                'name' => 'Delete sections',
+                'help' => 'Allow users to delete sections from pages',
+                'category' => 'Sections',
+                'sort' => 94
+            ),
+            "LINK_SECTIONS" => array(
+                'name' => 'Link existing sections',
+                'help' => 'Allow users to link existing sections to a page',
+                'category' => 'Sections',
+                'sort' => 96
+            ),
+            "REORDER_SECTIONS" => array(
+                'name' => 'Change order of sections',
+                'help' => 'Allow users to change the order of existing sections on a page',
+                'category' => 'Sections',
+                'sort' => 100
+            )
+        );
+    }
+
     /**
      * Viewing Permissions
      */
     public function canView($member = null) {
-        return Permission::check('CMS_ACCESS_CMSMain', 'any', $member);
+        return Permission::check('VIEW_SECTIONS', 'any', $member);
     }
 
     /**
@@ -100,7 +146,7 @@ class Section extends DataObject
      * @return boolean
      */
     public function canEdit($member = null) {
-        return Permission::check('CMS_ACCESS_CMSMain', 'any', $member);
+        return Permission::check('EDIT_SECTIONS', 'any', $member);
     }
 
     /**
@@ -108,7 +154,7 @@ class Section extends DataObject
      * @return boolean
      */
     public function canDelete($member = null) {
-        return Permission::check('CMS_ACCESS_CMSMain', 'any', $member);
+        return Permission::check('DELETE_SECTIONS', 'any', $member);
     }
 
     /**
@@ -116,7 +162,7 @@ class Section extends DataObject
      * @return boolean
      */
     public function canCreate($member = null) {
-        return Permission::check('CMS_ACCESS_CMSMain', 'any', $member);
+        return Permission::check('CREATE_SECTIONS', 'any', $member);
     }
 
     public function getConfigStyles(){
