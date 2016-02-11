@@ -50,16 +50,17 @@ class SectionPageExtension extends DataExtension
 
         # Limit sections based on type
         $LimitSectionTypes = Config::inst()->get($this->owner->ClassName, 'LimitSectionTypes');
-        // debug::dump($LimitSectionTypes);
-        foreach ($LimitSectionTypes as $type => $value) {
-            if ($value == 0) {
-                unset($SectionSubClasses[$type]);
-                continue;
-            }
-            $CurrentSectionCount = $this->owner->Sections()->filter('ClassName', $type)->count();
-            if ($CurrentSectionCount >= $value) {
-                unset($SectionSubClasses[$type]);
-                continue;
+        if ($LimitSectionTypes) {
+            foreach ($LimitSectionTypes as $type => $value) {
+                if ($value == 0) {
+                    unset($SectionSubClasses[$type]);
+                    continue;
+                }
+                $CurrentSectionCount = $this->owner->Sections()->filter('ClassName', $type)->count();
+                if ($CurrentSectionCount >= $value) {
+                    unset($SectionSubClasses[$type]);
+                    continue;
+                }
             }
         }
 
