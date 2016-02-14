@@ -1,7 +1,9 @@
 <% if Pages %>
 <nav {$ClassAttr}{$AnchorAttr} aria-label="breadcrumbs" role="navigation">
 	<ul>
-		<li class="item"><a href="/">Home</a></li>
+		<% if ShowHome %>
+			<li class="item"><a href="/">Home</a></li>
+		<% end_if %>
 		<%-- use css :after to add things like / or > --%>
 		<% loop Pages %>
 			<% if Last %>
