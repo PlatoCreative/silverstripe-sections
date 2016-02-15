@@ -26,34 +26,15 @@ class SectionsListItem extends DataObject
         "AdminTitle" => "Varchar(50)",
         "Status" => "Boolean",
         "Title" => "Varchar(100)",
-        "Content" => "Text",
-    );
-
-    private static $has_one = array(
-        "Image" => "Image"
-    );
-
-    private static $many_many = array(
-        "Links" => "Link"
-    );
-
-    private static $many_many_extraFields = array(
-        'Links' => array(
-            'Sort' => 'Int'
-        )
+        "Content" => "HTMLText",
     );
 
     private static $summary_fields = array(
-        "Image.CMSThumbnail" => "Image",
         "AdminTitle" => "Title",
         "NiceStatus" => "Status"
     );
 
     public function getCMSFields() {
-        $linksGridConfig = GridFieldConfig_RelationEditor::create();
-        if ($this->Links()->Count() > 0) {
-            $linksGridConfig->addComponent(new GridFieldOrderableRows());
-        }
 
         $fields = parent::getCMSFields();
         $fields->addFieldsToTab(
@@ -77,13 +58,9 @@ class SectionsListItem extends DataObject
                     'Title'
                 )
                 ->setRows(2),
-                TextareaField::create(
+                HtmlEditorField::create(
                     'Content',
                     'Content'
-                ),
-                UploadField::create(
-                    'Image',
-                    'Image'
                 )
             )
         );
