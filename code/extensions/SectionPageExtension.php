@@ -142,4 +142,8 @@ class SectionPageExtension extends DataExtension
     public function Sections(){
         // return $this->Sections()->renderWith('Sections');
     }
+
+    public function LinkURL(){
+        return $this->owner->Link();
+    }
 }
