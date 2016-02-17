@@ -6,8 +6,15 @@
 
 class MainSection extends Section
 {
-    public function getCMSFields() {
-        return false;
+    /**
+     * CMS Fields
+     * @return FieldList
+     */
+    function getCMSFields()
+    {
+        $fields = parent::getCMSFields();
+        $fields->removeByName(array('Main','AdminTitle','MenuTitle','Public'));
+        return $fields;
     }
 
     public function Layout()
@@ -17,6 +24,11 @@ class MainSection extends Section
         $access = Permission::checkMember($member, 'CMS_ACCESS');
         $sectionType = get_called_class();
         if($this->Public || $access){
+            $result = new UserDefinedForm_Controller($page);
+            if($result){
+                $result->init();
+                $page->Form = $result->Form();
+            }
             return $page->renderWith($this->Render());
         }
     }
