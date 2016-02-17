@@ -24,8 +24,9 @@ class MainSection extends Section
         $access = Permission::checkMember($member, 'CMS_ACCESS');
         $sectionType = get_called_class();
         if($this->Public || $access){
-            $result = new UserDefinedForm_Controller($page);
-            if($result){
+            // Added UserDefinedForm to section
+            if(in_array('UserDefinedForm', ClassInfo::ancestry($page->ClassName))){
+                $result = new UserDefinedForm_Controller($page);
                 $result->init();
                 $page->Form = $result->Form();
             }
