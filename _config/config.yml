@@ -7,3 +7,6 @@ After:
 Page:
   extensions:
     - SectionPageExtension
+Injector:
+  GridField:
+    class: RowExtraClassesGridField

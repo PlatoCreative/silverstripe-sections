@@ -71,4 +71,18 @@ class SectionsListItem extends DataObject
         return ($this->Status == 1 ? "Active" : "Disabled");
     }
 
+    public function Anchor(){
+        if ($this->Title) {
+            return strtolower(str_replace(' ','',$this->Title));
+        }
+        return false;
+    }
+
+    public function AnchorAttr(){
+        if ($this->Anchor()) {
+            return 'id="'.$this->Anchor().'"' ;
+        }
+        return false;
+    }
+
 }
