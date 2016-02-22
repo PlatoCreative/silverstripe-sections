@@ -90,6 +90,42 @@ class SectionsBanner extends DataObject
         return $fields;
     }
 
+    /**
+     * Viewing Permissions
+     * @return boolean
+     */
+    public function canView($member = null)
+    {
+        return Permission::check('EDIT_SECTIONS', 'any', $member);
+    }
+
+    /**
+     * Editing Permissions
+     * @return boolean
+     */
+    public function canEdit($member = null)
+    {
+        return Permission::check('EDIT_SECTIONS', 'any', $member);
+    }
+
+    /**
+     * Deleting Permissions
+     * @return boolean
+     */
+    public function canDelete($member = null)
+    {
+        return Permission::check('EDIT_SECTIONS', 'any', $member);
+    }
+
+    /**
+     * Creating Permissions
+     * @return boolean
+     */
+    public function canCreate($member = null)
+    {
+        return Permission::check('EDIT_SECTIONS', 'any', $member);
+    }
+
     public function getNiceStatus() {
         return ($this->Status == 1 ? "Active" : "Disabled");
     }
