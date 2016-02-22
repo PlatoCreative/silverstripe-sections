@@ -26,6 +26,10 @@ class LinkSection extends Section
         'LinkList' => 'SectionsLink'
     );
 
+    /**
+     * {@inheritdoc }
+     * @return array
+     */
     private static $many_many_extraFields = array(
         'LinkList' => array(
             'Sort' => 'Int'

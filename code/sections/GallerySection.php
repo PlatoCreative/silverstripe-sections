@@ -9,6 +9,10 @@ class GallerySection extends Section
         'Images' => 'Image'
     );
 
+    /**
+     * {@inheritdoc }
+     * @return array
+     */
     private static $many_many_extraFields = array(
         'Images' => array(
             'SortOrder' => 'Int'

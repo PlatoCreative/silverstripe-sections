@@ -9,7 +9,12 @@ class BreadcrumbSection extends Section
         "ShowHome" => "Boolean"
     );
 
-    public function getCMSFields() {
+    /**
+     * CMS Fields
+     * @return FieldList
+     */
+    function getCMSFields()
+    {
         $fields = parent::getCMSFields();
         $fields->addFieldsToTab(
             "Root.Main",

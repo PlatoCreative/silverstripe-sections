@@ -19,6 +19,10 @@ class ImageBannerSection extends Section
         "Links" => "Link"
     );
 
+    /**
+     * {@inheritdoc }
+     * @return array
+     */
     private static $many_many_extraFields = array(
         'Images' => array(
             'SortOrder' => 'Int'
@@ -38,7 +42,7 @@ class ImageBannerSection extends Section
         if ($this->Links()->Count() > 0) {
             $linksGridConfig->addComponent(new GridFieldOrderableRows());
         }
-        
+
         $fields = parent::getCMSFields();
         $fields->addFieldsToTab(
             "Root.Main",

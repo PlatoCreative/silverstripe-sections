@@ -1,6 +1,7 @@
 <?php
 class BannerSection extends Section
 {
+
     /**
      * Has_many relationship
      * @return array
@@ -9,6 +10,10 @@ class BannerSection extends Section
         "Banners" => "SectionsBanner"
     );
 
+    /**
+     * {@inheritdoc }
+     * @return array
+     */
     private static $many_many_extraFields = array(
         "Banners" => array(
             "Sort" => "Int"
