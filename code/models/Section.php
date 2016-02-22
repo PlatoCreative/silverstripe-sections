@@ -21,7 +21,13 @@ class Section extends DataObject implements PermissionProvider
         'AdminTitle' => 'Varchar(30)',
         'MenuTitle' => 'Varchar(30)',
         'Public' => 'Boolean',
-        'Style' => 'Text'
+        'Style' => 'Text',
+        "ShowInMenus" => "Boolean"
+    );
+
+    private static $defaults = array(
+        "ShowInMenus" => 1,
+        "Public" => 1
     );
 
     /**
@@ -46,14 +52,21 @@ class Section extends DataObject implements PermissionProvider
                         'AdminTitle',
                         'Admin title'
                     )
-                    ->setDescription('This field is for adminisration use only and will not display on the site.')
+                    ->setDescription('This field is for adminisration use only and will not display on the site.'),
+                    CheckboxField::create(
+                        'ShowInMenus',
+                        'Show in menus',
+                        1
+                    ),
+                    DisplayLogicWrapper::create(
+                        TextField::create(
+                            'MenuTitle',
+                            'Navigation label'
+                        )
+                    )->displayIf("ShowInMenus")->isChecked()->end()
                 ),
                 $tabSettings = new Tab(
                     'Settings',
-                    TextField::create(
-                        'MenuTitle',
-                        'Menu title'
-                    ),
                     CheckboxField::create(
                         'Public',
                         'Public',
@@ -185,10 +198,8 @@ class Section extends DataObject implements PermissionProvider
     }
 
     public function Anchor(){
-        if ($this->MenuTitle) {
+        if ($this->MenuTitle && $this->ShowInMenus) {
             return strtolower(str_replace(' ','',$this->MenuTitle));
-        }else{
-            return $this->Type.$this->ID;
         }
         return false;
     }
