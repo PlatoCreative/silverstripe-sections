@@ -1,6 +1,8 @@
 <?php
 class ContentSection extends Section
 {
+    private static $title = "General content";
+
     /**
      * Database fields
      * @return array

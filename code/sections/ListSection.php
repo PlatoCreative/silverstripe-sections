@@ -1,6 +1,8 @@
 <?php
 class ListSection extends Section
 {
+    private static $title = "Definition List";
+
     /**
      * Has_many relationship
      * @return array

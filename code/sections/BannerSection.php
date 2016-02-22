@@ -1,6 +1,7 @@
 <?php
 class BannerSection extends Section
 {
+    private static $title = "Rotating banner";
 
     /**
      * Has_many relationship

@@ -6,6 +6,8 @@
 
 class MainSection extends Section
 {
+    private static $title = "Placeholder for main content";
+    
     /**
      * CMS Fields
      * @return FieldList

@@ -1,6 +1,8 @@
 <?php
 class ImageSection extends Section
 {
+    private static $title = "Image seperator";
+
     /**
     * Many_many relationship
     * @return array

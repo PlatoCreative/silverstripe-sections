@@ -1,6 +1,8 @@
 <?php
 class LinkSection extends Section
 {
+    private static $title = "Linkable list items";
+
     /**
      * Database fields
      * @return array

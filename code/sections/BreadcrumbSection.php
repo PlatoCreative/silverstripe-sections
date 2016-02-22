@@ -1,6 +1,8 @@
 <?php
 class BreadcrumbSection extends Section
 {
+    private static $title = "Breadcrumb";
+
     /**
      * Database fields
      * @return array

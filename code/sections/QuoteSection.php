@@ -1,6 +1,8 @@
 <?php
 class QuoteSection extends Section
 {
+    private static $title = "Quote";
+
     /**
      * Database fields
      * @return array

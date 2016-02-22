@@ -1,6 +1,8 @@
 <?php
 class PeopleSection extends Section
 {
+    private static $title = "List people";
+    
     /**
      * Database fields
      * @return array

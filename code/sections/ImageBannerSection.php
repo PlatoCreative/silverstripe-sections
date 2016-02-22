@@ -1,6 +1,8 @@
 <?php
 class ImageBannerSection extends Section
 {
+    private static $title = "Rotating image banner";
+
     /**
      * Database fields
      * @return array

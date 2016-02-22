@@ -1,6 +1,8 @@
 <?php
 class GallerySection extends Section
 {
+    private static $title = "Gallery";
+
     /**
     * Many_many relationship
     * @return array

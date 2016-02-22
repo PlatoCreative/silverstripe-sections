@@ -1,6 +1,8 @@
 <?php
 class FormSection extends Section
 {
+    private static $title = "Form";
+
     /**
      * Database fields
      * @return array
