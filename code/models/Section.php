@@ -85,7 +85,8 @@ class Section extends DataObject implements PermissionProvider
      * @return array
      */
     public static $searchable_fields = array(
-        'AdminTitle'
+        'AdminTitle',
+        'MenuTitle'
     );
 
 
