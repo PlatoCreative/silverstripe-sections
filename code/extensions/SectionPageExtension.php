@@ -44,8 +44,8 @@ class SectionPageExtension extends DataExtension
             ->addComponent(new GridFieldOrderableRows());
 
         $SectionGrid->getComponentByType('GridFieldAddExistingAutocompleter')
-            ->setSearchFields(array('AdminTitle'))
-            ->setResultsFormat('$AdminTitle');
+            ->setSearchFields(array('AdminTitle','MenuTitle','Type'))
+            ->setResultsFormat('$AdminTitle - $Type');
 
         $SectionSubClasses = ClassInfo::subclassesfor('Section');
         unset($SectionSubClasses['Section'], $SectionSubClasses['MainSection']);
@@ -55,7 +55,6 @@ class SectionPageExtension extends DataExtension
 
         # Limit sections based on type
         $LimitSectionTypes = Config::inst()->get($this->owner->ClassName, 'LimitSectionTypes');
-        // debug::dump($LimitSectionTypes);
         if ($LimitSectionTypes) {
             foreach ($LimitSectionTypes as $type => $value) {
                 if ($value == 0) {
@@ -75,7 +74,6 @@ class SectionPageExtension extends DataExtension
 
         # Limit total sections
         $LimitSectionTotal = Config::inst()->get($this->owner->ClassName, 'LimitSectionTotal');
-        // debug::dump($PageLimits);
         if (isset($LimitSectionTotal) && $this->owner->Sections()->Count() >= $LimitSectionTotal) {
             // remove the buttons if we don't want to allow more records to be added/created
             $SectionGrid->removeComponentsByType('GridFieldAddNewButton');
