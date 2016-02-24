@@ -3,6 +3,8 @@ class QuoteSection extends Section
 {
     private static $title = "Quote";
 
+    private static $description = "";
+
     /**
      * Database fields
      * @return array

@@ -3,6 +3,8 @@ class ListSection extends Section
 {
     private static $title = "Definition List";
 
+    private static $description = "";
+
     /**
      * Has_many relationship
      * @return array

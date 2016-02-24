@@ -1,6 +1,10 @@
 <?php
 class Section extends DataObject implements PermissionProvider
 {
+    private static $title = "Section";
+
+    private static $description = "";
+
     /**
      * Singular name for CMS
      * @return string
@@ -48,11 +52,6 @@ class Section extends DataObject implements PermissionProvider
                 "Root",
                 $tabMain = new Tab(
                     'Main',
-                    TextField::create(
-                        'AdminTitle',
-                        'Admin title'
-                    )
-                    ->setDescription('This field is for adminisration use only and will not display on the site.'),
                     CheckboxField::create(
                         'ShowInMenus',
                         'Show in menus',
@@ -63,10 +62,16 @@ class Section extends DataObject implements PermissionProvider
                             'MenuTitle',
                             'Navigation label'
                         )
-                    )->displayIf("ShowInMenus")->isChecked()->end()
+                    )
+                    ->displayIf("ShowInMenus")->isChecked()->end()
                 ),
                 $tabSettings = new Tab(
                     'Settings',
+                    TextField::create(
+                        'AdminTitle',
+                        'Admin title'
+                    )
+                    ->setDescription('This field is for adminisration use only and will not display on the site.'),
                     CheckboxField::create(
                         'Public',
                         'Public',
@@ -194,7 +199,12 @@ class Section extends DataObject implements PermissionProvider
         if (!$ClassName) {
             $ClassName = get_called_class();
         }
+        $niceTitle = Config::inst()->get($ClassName,'title');
+        if ($niceTitle) {
+            return $niceTitle;
+        }
         return trim(preg_replace('/([A-Z])/', ' $1', str_ireplace('Section', '', $ClassName)));
+
     }
 
     public function Anchor(){

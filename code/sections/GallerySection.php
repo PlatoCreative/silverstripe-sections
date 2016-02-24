@@ -3,6 +3,8 @@ class GallerySection extends Section
 {
     private static $title = "Gallery";
 
+    private static $description = "";
+
     /**
     * Many_many relationship
     * @return array

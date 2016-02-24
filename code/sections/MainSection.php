@@ -7,6 +7,14 @@
 class MainSection extends Section
 {
     private static $title = "Placeholder for main content";
+
+    private static $description = "";
+
+    private static $minimum_per_page = 1;
+
+    private static $maximum_per_page = 1;
+
+    private static $selectable_option = false;
     
     /**
      * CMS Fields
@@ -34,5 +42,9 @@ class MainSection extends Section
             }
             return $page->renderWith($this->Render());
         }
+    }
+
+    public function GridFieldRowClasses(){
+        return array('disabled', 'main');
     }
 }

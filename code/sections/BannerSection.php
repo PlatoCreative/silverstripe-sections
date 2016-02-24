@@ -3,6 +3,8 @@ class BannerSection extends Section
 {
     private static $title = "Rotating banner";
 
+    private static $description = "";
+
     /**
      * Has_many relationship
      * @return array

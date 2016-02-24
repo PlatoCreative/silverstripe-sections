@@ -3,6 +3,8 @@ class LinkSection extends Section
 {
     private static $title = "Linkable list items";
 
+    private static $description = "";
+
     /**
      * Database fields
      * @return array

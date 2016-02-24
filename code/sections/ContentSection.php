@@ -3,6 +3,8 @@ class ContentSection extends Section
 {
     private static $title = "General content";
 
+    private static $description = "";
+
     /**
      * Database fields
      * @return array

@@ -3,6 +3,8 @@ class ImageBannerSection extends Section
 {
     private static $title = "Rotating image banner";
 
+    private static $description = "";
+
     /**
      * Database fields
      * @return array
