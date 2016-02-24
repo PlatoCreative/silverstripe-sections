@@ -11,7 +11,8 @@ class LinkSection extends Section
      */
     private static $db = array(
         'Title' => 'Text',
-        'LinkType' => 'Enum("currentchildren,specify,children", "currentchildren")'
+        'LinkType' => 'Enum("currentchildren,specify,children", "currentchildren")',
+        'LinkLimit' => 'Int'
     );
 
     /**
@@ -76,6 +77,13 @@ class LinkSection extends Section
                     )
                 )->displayIf("LinkType")->isEqualTo("children")->end(),
                 DisplayLogicWrapper::create(
+                    NumericField::create(
+                        'LinkLimit',
+                        'Limit links'
+                    )
+                    ->setDescription("0 equals unlimited amount.")
+                )->displayIf("LinkType")->isNotEqualTo("specify")->end(),
+                DisplayLogicWrapper::create(
                     GridField::create(
                         'LinkList',
                         'Current Link(s)',
@@ -99,6 +107,7 @@ class LinkSection extends Section
                 return $this
                     ->ParentPage()
                     ->Children()
+                    ->Limit($this->LinkLimit)
                     ->Exclude(
                         array(
                             "ID" => $currentPage->ID
@@ -108,7 +117,9 @@ class LinkSection extends Section
             case 'currentchildren':
             default:
                 $currentPage = Director::get_current_page();
-                return $currentPage->Children();
+                return $currentPage
+                    ->Children()
+                    ->Limit($this->LinkLimit);
                 break;
         }
     }
