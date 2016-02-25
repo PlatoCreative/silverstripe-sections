@@ -1,4 +1,10 @@
 <?php
+/**
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class ImageSection extends Section
 {
     private static $title = "Image separator";
@@ -7,7 +13,7 @@ class ImageSection extends Section
 
     /**
     * Many_many relationship
-    * @return array
+    * @var array
     */
     private static $many_many = array(
         'Images' => 'Image'
@@ -15,7 +21,7 @@ class ImageSection extends Section
 
     /**
      * {@inheritdoc }
-     * @return array
+     * @var array
      */
     private static $many_many_extraFields = array(
         'Images' => array(

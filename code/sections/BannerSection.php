@@ -1,4 +1,10 @@
 <?php
+/**
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class BannerSection extends Section
 {
     private static $title = "Rotating banner";
@@ -7,7 +13,7 @@ class BannerSection extends Section
 
     /**
      * Has_many relationship
-     * @return array
+     * @var array
      */
     private static $many_many = array(
         "Banners" => "SectionsBanner"
@@ -15,7 +21,7 @@ class BannerSection extends Section
 
     /**
      * {@inheritdoc }
-     * @return array
+     * @var array
      */
     private static $many_many_extraFields = array(
         "Banners" => array(

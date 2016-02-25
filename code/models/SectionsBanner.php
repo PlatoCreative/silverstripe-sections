@@ -1,26 +1,27 @@
 <?php
 /**
-* Banner
-*
-* @package sectionbanner
-*/
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class SectionsBanner extends DataObject
 {
     /**
      * Singular name for CMS
-     * @return string
+     * @var string
      */
     private static $singular_name = 'Banner';
 
     /**
      * Plural name for CMS
-     * @return string
+     * @var string
      */
     private static $plural_name = 'Banners';
 
     /**
      * Database fields
-     * @return array
+     * @var array
      */
     private static $db = array(
         "AdminTitle" => "Varchar(50)",

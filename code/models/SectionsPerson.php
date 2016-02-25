@@ -1,21 +1,27 @@
 <?php
+/**
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class SectionsPerson extends Dataobject
 {
     /**
      * Singular name for CMS
-     * @return string
+     * @var string
      */
     private static $singular_name = "Person";
 
     /**
      * Plural name for CMS
-     * @return string
+     * @var string
      */
     private static $plural_name = "People";
 
     /**
      * Database fields
-     * @return array
+     * @var array
      */
     private static $db = array(
         "Name" => "Text",
@@ -28,7 +34,7 @@ class SectionsPerson extends Dataobject
 
     /**
     * Has one relationship
-    * @return array
+    * @var array
     */
     private static $has_one = array(
         'Image' => 'Image'

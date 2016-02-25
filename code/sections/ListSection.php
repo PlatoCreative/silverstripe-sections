@@ -1,4 +1,10 @@
 <?php
+/**
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class ListSection extends Section
 {
     private static $title = "Definition List";
@@ -7,7 +13,7 @@ class ListSection extends Section
 
     /**
      * Has_many relationship
-     * @return array
+     * @var array
      */
     private static $many_many = array(
         "Items" => "SectionsListItem"
@@ -15,7 +21,7 @@ class ListSection extends Section
 
     /**
      * {@inheritdoc }
-     * @return array
+     * @var array
      */
     private static $many_many_extraFields = array(
         "Items" => array(

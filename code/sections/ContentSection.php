@@ -1,4 +1,10 @@
 <?php
+/**
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class ContentSection extends Section
 {
     private static $title = "General content";
@@ -7,7 +13,7 @@ class ContentSection extends Section
 
     /**
      * Database fields
-     * @return array
+     * @var array
      */
     private static $db = array(
         'Title' => 'Varchar(40)',
@@ -16,7 +22,7 @@ class ContentSection extends Section
 
     /**
      * CMS Fields
-     * @return FieldList
+     * @var FieldList
      */
     public function getCMSFields()
     {

@@ -1,4 +1,10 @@
 <?php
+/**
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class FormSection extends Section
 {
     private static $title = "Page userform";
@@ -9,13 +15,13 @@ class FormSection extends Section
 
     /**
      * Database fields
-     * @return array
+     * @var array
      */
     private static $db = array();
 
     /**
      * Has_one relationship
-     * @return array
+     * @var array
      */
     private static $has_one = array(
         'FormPage' => 'UserDefinedForm'

@@ -1,4 +1,10 @@
 <?php
+/**
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class QuoteSection extends Section
 {
     private static $title = "Quote";
@@ -7,7 +13,7 @@ class QuoteSection extends Section
 
     /**
      * Database fields
-     * @return array
+     * @var array
      */
     private static $db = array(
         'Quote' => 'Text',

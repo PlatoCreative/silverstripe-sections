@@ -1,4 +1,10 @@
 <?php
+/**
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class PeopleSection extends Section
 {
     private static $title = "List of people";
@@ -7,7 +13,7 @@ class PeopleSection extends Section
 
     /**
      * Database fields
-     * @return array
+     * @var array
      */
     private static $db = array(
         'Title' => 'Varchar(40)',
@@ -16,7 +22,7 @@ class PeopleSection extends Section
 
     /**
     * Many_many relationship
-    * @return array
+    * @var array
     */
     private static $many_many = array(
         'People' => 'SectionsPerson'
@@ -24,7 +30,7 @@ class PeopleSection extends Section
 
     /**
      * {@inheritdoc }
-     * @return array
+     * @var array
      */
     private static $many_many_extraFields = array(
         'People' => array(

@@ -1,4 +1,10 @@
 <?php
+/**
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class Section extends DataObject implements PermissionProvider
 {
     private static $title = "Section";
@@ -7,19 +13,19 @@ class Section extends DataObject implements PermissionProvider
 
     /**
      * Singular name for CMS
-     * @return string
+     * @var string
      */
     private static $singular_name = 'Section';
 
     /**
      * Plural name for CMS
-     * @return string
+     * @var string
      */
     private static $plural_name = 'Sections';
 
     /**
      * Database fields
-     * @return array
+     * @var array
      */
     private static $db = array(
         'AdminTitle' => 'Varchar(30)',
@@ -36,7 +42,7 @@ class Section extends DataObject implements PermissionProvider
 
     /**
      * Belongs_many_many relationship
-     * @return array
+     * @var array
      */
     private static $belongs_many_many = array(
         'Pages' => 'Page'
@@ -52,6 +58,11 @@ class Section extends DataObject implements PermissionProvider
                 "Root",
                 $tabMain = new Tab(
                     'Main',
+                    TextField::create(
+                        'AdminTitle',
+                        'Admin title'
+                    )
+                    ->setDescription('This field is for adminisration use only and will not display on the site.'),
                     CheckboxField::create(
                         'ShowInMenus',
                         'Show in menus',
@@ -67,11 +78,6 @@ class Section extends DataObject implements PermissionProvider
                 ),
                 $tabSettings = new Tab(
                     'Settings',
-                    TextField::create(
-                        'AdminTitle',
-                        'Admin title'
-                    )
-                    ->setDescription('This field is for adminisration use only and will not display on the site.'),
                     CheckboxField::create(
                         'Public',
                         'Public',

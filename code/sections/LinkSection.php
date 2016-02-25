@@ -1,4 +1,10 @@
 <?php
+/**
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class LinkSection extends Section
 {
     private static $title = "Linkable list items";
@@ -7,7 +13,7 @@ class LinkSection extends Section
 
     /**
      * Database fields
-     * @return array
+     * @var array
      */
     private static $db = array(
         'Title' => 'Text',
@@ -17,7 +23,7 @@ class LinkSection extends Section
 
     /**
     * Has one relationship
-    * @return array
+    * @var array
     */
     private static $has_one = array(
         'ParentPage' => 'Page'
@@ -25,7 +31,7 @@ class LinkSection extends Section
 
     /**
     * Many_many relationship
-    * @return array
+    * @var array
     */
     private static $many_many = array(
         'LinkList' => 'SectionsLink'
@@ -33,7 +39,7 @@ class LinkSection extends Section
 
     /**
      * {@inheritdoc }
-     * @return array
+     * @var array
      */
     private static $many_many_extraFields = array(
         'LinkList' => array(

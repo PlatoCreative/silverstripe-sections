@@ -1,26 +1,27 @@
 <?php
 /**
-* List Item
-*
-* @package sectionlistitem
-*/
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class SectionsListItem extends DataObject
 {
     /**
      * Singular name for CMS
-     * @return string
+     * @var string
      */
     private static $singular_name = 'Item';
 
     /**
      * Plural name for CMS
-     * @return string
+     * @var string
      */
     private static $plural_name = 'Items';
 
     /**
      * Database fields
-     * @return array
+     * @var array
      */
     private static $db = array(
         "AdminTitle" => "Varchar(50)",

@@ -1,4 +1,10 @@
 <?php
+/**
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class BreadcrumbSection extends Section
 {
     private static $title = "Breadcrumbs";
@@ -7,7 +13,7 @@ class BreadcrumbSection extends Section
 
     /**
      * Database fields
-     * @return array
+     * @var array
      */
     private static $db = array(
         "ShowHome" => "Boolean"

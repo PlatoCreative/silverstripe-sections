@@ -1,24 +1,27 @@
 <?php
 /**
-* Custom link
-*/
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class SectionsLink extends Link
 {
     /**
      * Singular name for CMS
-     * @return string
+     * @var string
      */
     private static $singular_name = "Link";
 
     /**
      * Plural name for CMS
-     * @return string
+     * @var string
      */
     private static $plural_name = "Links";
 
     /**
      * Database fields
-     * @return array
+     * @var array
      */
     private static $db = array(
         "Content" => "Text",
@@ -27,7 +30,7 @@ class SectionsLink extends Link
 
     /**
      * Has_one relationship
-     * @return array
+     * @var array
      */
     private static $has_one = array(
         "PreviewImage" => "Image"

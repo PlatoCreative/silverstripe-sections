@@ -1,4 +1,10 @@
 <?php
+/**
+ *
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class ImageBannerSection extends Section
 {
     private static $title = "Rotating image banner";
@@ -7,7 +13,7 @@ class ImageBannerSection extends Section
 
     /**
      * Database fields
-     * @return array
+     * @var array
      */
     private static $db = array(
         'Title' => 'Varchar(40)',
@@ -16,7 +22,7 @@ class ImageBannerSection extends Section
 
     /**
     * Many_many relationship
-    * @return array
+    * @var array
     */
     private static $many_many = array(
         'Images' => 'Image',
@@ -25,7 +31,7 @@ class ImageBannerSection extends Section
 
     /**
      * {@inheritdoc }
-     * @return array
+     * @var array
      */
     private static $many_many_extraFields = array(
         'Images' => array(

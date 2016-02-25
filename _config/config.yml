@@ -10,3 +10,8 @@ Page:
 Injector:
   GridField:
     class: RowExtraClassesGridField
+LeftAndMain:
+  extra_requirements_css:
+    - 'sections/css/CMSMain.GridField.css'
+  extra_requirements_js:
+    - 'sections/js/CMSMain.SectionForm.js'

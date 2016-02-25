@@ -8,7 +8,7 @@ class SectionPageExtension extends DataExtension
 {
     /**
      * Has_one relationship
-     * @return array
+     * @var array
      */
     private static $has_one = array(
         "PreviewImage" => "Image"
@@ -16,7 +16,7 @@ class SectionPageExtension extends DataExtension
 
     /**
      * Has_many relationship
-     * @return array
+     * @var array
      */
     private static $many_many = array(
         'Sections' => 'Section'

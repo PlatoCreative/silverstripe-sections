@@ -1,9 +1,10 @@
 <?php
-
 /**
-* Used as a placeholder for main content on the page.  Don't add anything to this file.
-*/
-
+ * Used as a placeholder for main content on the page.  Don't add anything to this file.
+ *
+ * @package silverstripe
+ * @subpackage sections
+ */
 class MainSection extends Section
 {
     private static $title = "Placeholder for main content";
@@ -15,7 +16,7 @@ class MainSection extends Section
     private static $maximum_per_page = 1;
 
     private static $selectable_option = false;
-    
+
     /**
      * CMS Fields
      * @return FieldList
