@@ -50,24 +50,22 @@ class SectionPageExtension extends DataExtension
         $AvailableTypes = $this->AvailableSectionTypes();
 
         foreach ($AvailableTypes as $key => $value) {
-            if($AvailableTypes[$key]['selectable_option'] != false){
-                $AvailableTypes[$key] = $AvailableTypes[$key]['type'];
+            if($value['selectable_option'] && !$value['limit_reached']){
+                $AvailableTypes[$key] = $value['type'];
             }
         }
 
         $SectionGrid->getComponentByType('GridFieldAddNewMultiClass')
-        ->setClasses($AvailableTypes);
+            ->setClasses($AvailableTypes);
 
         # Limit total sections
-        $LimitSectionTotal = Config::inst(
-
-        )->get($this->owner->ClassName, 'LimitSectionTotal');
-        if (isset($LimitSectionTotal) && $this->owner->Sections()->Count() >= $LimitSectionTotal) {
-            // remove the buttons if we don't want to allow more records to be added/created
-            $SectionGrid->removeComponentsByType('GridFieldAddNewButton');
-            $SectionGrid->removeComponentsByType('GridFieldAddExistingAutocompleter');
-            $SectionGrid->removeComponentsByType('GridFieldAddNewMultiClass');
-        }
+        // $LimitSectionTotal = Config::inst()->get($this->owner->ClassName, 'LimitSectionTotal');
+        // if (isset($LimitSectionTotal) && $this->owner->Sections()->Count() >= $LimitSectionTotal) {
+        //     // remove the buttons if we don't want to allow more records to be added/created
+        //     $SectionGrid->removeComponentsByType('GridFieldAddNewButton');
+        //     $SectionGrid->removeComponentsByType('GridFieldAddExistingAutocompleter');
+        //     $SectionGrid->removeComponentsByType('GridFieldAddNewMultiClass');
+        // }
 
         if (!Permission::check("LINK_SECTIONS")) {
             $SectionGrid->removeComponentsByType('GridFieldAddExistingAutocompleter');
@@ -108,31 +106,37 @@ class SectionPageExtension extends DataExtension
 
         $AvailableTypes = $this->AvailableSectionTypes();
         foreach ($AvailableTypes as $key => $value) {
-            $SectionCount = $this->owner->Sections()
-                ->filter(
-                    array(
-                        'ClassName' => $AvailableTypes[$key]['classname']
-                    )
-                )
-                ->Count();
-            if($AvailableTypes[$key]['minimum_per_page'] > $SectionCount){
-                $ClassName = $AvailableTypes[$key]['classname'];
-                $section = $this->owner->Sections()
-                    ->filter(
-                        array(
-                            'ClassName' => $ClassName
+            $ClassName = $AvailableTypes[$key]['classname'];
+            if($AvailableTypes[$key]['presets'] !== null){
+                foreach ($AvailableTypes[$key]['presets'] as $AdminTitle => $ShareStatus) {
+                    $SectionCount = $this->owner->Sections()
+                        ->filter(
+                            array(
+                                'ClassName' => $ClassName,
+                                'AdminTitle' => $AdminTitle
+                            )
                         )
-                    )
-                    ->first();
+                        ->Count();
+                    if (!$SectionCount) {
+                        $section = $this->owner->Sections()
+                            ->filter(
+                                array(
+                                    'ClassName' => $ClassName,
+                                    'AdminTitle' => $AdminTitle
+                                )
+                            )
+                            ->first();
 
-                if ($section) {
-                    $this->owner->Sections()->add($section->ID);
-                }else{
-                    $section = $ClassName::create();
-                    $section->AdminTitle = $AvailableTypes[$key]['type'];
-                    $section->Public = true;
-                    $section->Write();
-                    $this->owner->Sections()->add($section);
+                        if ($section) {
+                            $this->owner->Sections()->add($section->ID);
+                        }else{
+                            $section = $ClassName::create();
+                            $section->AdminTitle = $AdminTitle;
+                            $section->Public = true;
+                            $section->Write();
+                            $this->owner->Sections()->add($section);
+                        }
+                    }
                 }
             }
         }
@@ -141,7 +145,11 @@ class SectionPageExtension extends DataExtension
     public function AvailableSectionTypes()
     {
         $AvailableTypes = ClassInfo::subclassesfor('Section');
-        unset($AvailableTypes['section']);
+        unset($AvailableTypes['Section']);
+
+        # Get section options from each page type.
+        $pageTypeOptions = Config::inst()->get($this->owner->ClassName, 'section_options');
+
         foreach ($AvailableTypes as $key => $value) {
             $Config = Config::inst();
             $selectable_option = true;
@@ -151,36 +159,45 @@ class SectionPageExtension extends DataExtension
             $AvailableTypes[$key] = array(
                 'classname' => $value,
                 'type' => Section::Type($value),
-                'minimum_per_page' => ($Config->get($value, 'minimum_per_page') !== null ?: 0),
-                'maximum_per_page' => ($Config->get($value, 'maximum_per_page') !== null ?: 0),
-                'selectable_option' => $selectable_option
+                'presets' => $Config->get($value, 'presets'),
+                'selectable_option' => $selectable_option,
+                'limit' => $Config->get($value, 'limit'),
             );
-        }
 
-        # Limit sections based on type
-        $LimitSectionTypes = Config::inst()->get($this->owner->ClassName, 'LimitSectionTypes');
-        if ($LimitSectionTypes) {
-            foreach ($LimitSectionTypes as $type => $value) {
-                if ($value == 0) {
-                    unset($AvailableTypes[$type]);
-                    continue;
+            if (isset($pageTypeOptions[$key])) {
+                $AvailableTypes[$key] = array_merge($AvailableTypes[$key], $pageTypeOptions[$key]);
+            }
+
+            $AvailableTypes[$key]['limit_reached'] = false;
+            if(isset($AvailableTypes[$key]['limit'])){
+                if ($AvailableTypes[$key]['limit'] == 0) {
+                    $AvailableTypes[$key]['limit_reached'] = true;
                 }
-                $CurrentSectionCount = $this->owner->Sections()->filter('ClassName', $type)->count();
-                if ($CurrentSectionCount >= $value) {
-                    unset($AvailableTypes[$type]);
-                    continue;
+
+                $CurrentSectionCount = $this->owner
+                    ->Sections()
+                    ->filter('ClassName', $AvailableTypes[$key]['type'])
+                    ->count();
+                if ($CurrentSectionCount >= $AvailableTypes[$key]['limit']) {
+                    $AvailableTypes[$key]['limit_reached'] = true;
                 }
             }
+
         }
 
         return $AvailableTypes;
     }
 
-    public function Sections(){
-        // return $this->Sections()->renderWith('Sections');
-    }
+    // public function Sections()
+    // {
+    //     $data = array(
+    //         'Sections' => $this->Sections()
+    //     );
+    //     return $data->renderWith('Sections');
+    // }
 
-    public function LinkURL(){
+    public function LinkURL()
+    {
         return $this->owner->Link();
     }
 }

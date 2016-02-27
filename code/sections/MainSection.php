@@ -11,11 +11,14 @@ class MainSection extends Section
 
     private static $description = "";
 
-    private static $minimum_per_page = 1;
-
-    private static $maximum_per_page = 1;
-
     private static $selectable_option = false;
+
+    /*
+     * @var array
+     */
+    private static $presets = array(
+        'Placeholder for main content' => 'shared'
+    );
 
     /**
      * CMS Fields

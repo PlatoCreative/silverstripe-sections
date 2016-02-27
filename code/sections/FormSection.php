@@ -11,6 +11,8 @@ class FormSection extends Section
 
     private static $description = "Displays userform from a specified page";
 
+    private static $limit = 1;
+
     /**
      * Database fields
      * @var array
