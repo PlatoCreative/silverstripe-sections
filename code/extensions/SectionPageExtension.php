@@ -58,14 +58,14 @@ class SectionPageExtension extends DataExtension
         $SectionGrid->getComponentByType('GridFieldAddNewMultiClass')
             ->setClasses($AvailableTypes);
 
-        # Limit total sections
-        // $LimitSectionTotal = Config::inst()->get($this->owner->ClassName, 'LimitSectionTotal');
-        // if (isset($LimitSectionTotal) && $this->owner->Sections()->Count() >= $LimitSectionTotal) {
-        //     // remove the buttons if we don't want to allow more records to be added/created
-        //     $SectionGrid->removeComponentsByType('GridFieldAddNewButton');
-        //     $SectionGrid->removeComponentsByType('GridFieldAddExistingAutocompleter');
-        //     $SectionGrid->removeComponentsByType('GridFieldAddNewMultiClass');
-        // }
+        // Limit total sections
+        $LimitSectionTotal = Config::inst()->get($this->owner->ClassName, 'LimitSectionTotal');
+        if (isset($LimitSectionTotal) && $this->owner->Sections()->Count() >= $LimitSectionTotal) {
+            // remove the buttons if we don't want to allow more records to be added/created
+            $SectionGrid->removeComponentsByType('GridFieldAddNewButton');
+            $SectionGrid->removeComponentsByType('GridFieldAddExistingAutocompleter');
+            $SectionGrid->removeComponentsByType('GridFieldAddNewMultiClass');
+        }
 
         if (!Permission::check("LINK_SECTIONS")) {
             $SectionGrid->removeComponentsByType('GridFieldAddExistingAutocompleter');
@@ -109,33 +109,21 @@ class SectionPageExtension extends DataExtension
             $ClassName = $AvailableTypes[$key]['classname'];
             if($AvailableTypes[$key]['presets'] !== null){
                 foreach ($AvailableTypes[$key]['presets'] as $AdminTitle => $ShareStatus) {
-                    $SectionCount = $this->owner->Sections()
+                    $Section = $this->owner->Sections()
                         ->filter(
                             array(
                                 'ClassName' => $ClassName,
                                 'AdminTitle' => $AdminTitle
                             )
-                        )
-                        ->Count();
-                    if (!$SectionCount) {
-                        $section = $this->owner->Sections()
-                            ->filter(
-                                array(
-                                    'ClassName' => $ClassName,
-                                    'AdminTitle' => $AdminTitle
-                                )
-                            )
-                            ->first();
-
-                        if ($section) {
-                            $this->owner->Sections()->add($section->ID);
-                        }else{
-                            $section = $ClassName::create();
-                            $section->AdminTitle = $AdminTitle;
-                            $section->Public = true;
-                            $section->Write();
-                            $this->owner->Sections()->add($section);
-                        }
+                        );
+                    if ($Section->Count() && $ShareStatus == 'shared') {
+                        $this->owner->Sections()->add($section->ID);
+                    }else{
+                        $section = $ClassName::create();
+                        $section->AdminTitle = $AdminTitle;
+                        $section->Public = true;
+                        $section->Write();
+                        $this->owner->Sections()->add($section);
                     }
                 }
             }
