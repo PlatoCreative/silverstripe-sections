@@ -52,7 +52,7 @@ class SectionsPerson extends Dataobject
             array(
                 UploadField::create(
                     'Image'
-                ),
+                )->setFolderName('Person'),
                 TextField::create(
                     'Name'
                 ),

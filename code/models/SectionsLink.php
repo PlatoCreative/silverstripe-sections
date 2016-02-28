@@ -49,7 +49,7 @@ class SectionsLink extends Link
                 UploadField::create(
                     'PreviewImage',
                     'Image'
-                )
+                )->setFolderName('Preview')
             ),
             'Type'
         );

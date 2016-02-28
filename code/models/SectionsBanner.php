@@ -85,7 +85,7 @@ class SectionsBanner extends DataObject
                 UploadField::create(
                     'Image',
                     'Image'
-                )
+                )->setFolderName('Banner')
             )
         );
         return $fields;

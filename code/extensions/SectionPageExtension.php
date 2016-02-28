@@ -94,7 +94,7 @@ class SectionPageExtension extends DataExtension
             UploadField::create(
                 'PreviewImage',
                 'Preview image'
-            )
+            )->setFolderName('Preview')
         );
 
         return $fields;
