@@ -13,5 +13,5 @@ Injector:
 LeftAndMain:
   extra_requirements_css:
     - 'sections/css/CMSMain.GridField.css'
-  extra_requirements_js:
+  extra_requirements_javascript:
     - 'sections/js/CMSMain.SectionForm.js'
