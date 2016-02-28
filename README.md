@@ -26,18 +26,17 @@ Below is the template hierarchy.
 3. SectionType_PageType.ss e.g. BannerSection_HomePage.ss
 4. SectionType.ss e.g. GallerySection.ss
 
-#### Limit or exclude sections
+#### Section Configurtation
 You can limit or completely exclude sections from a page type by defining it in your config.yml
+You can also setup Pages to have preset sections and decide if you want the sections to be shared across pages.
 ``` yml
 HomePage:
-  LimitSectionTypes:
-    BannerSection: 0
-    LinkSection: 0
-    PeopleSection: 1
-```
-
-Limiting the total sections a page in your config.yml
-``` yml
-HomePage:
-  LimitSectionTotal: 3
+  section_options:
+    BreadcrumbSection:
+      limit: 0 # excluded from HomePage
+    FormSection:
+      limit: 1 # Only 1 can ever be added
+      presets:
+        'Home Page Form': 'shared' # section is shared across home pages
+        'Another Form': 'not-shared' # section is not shared across home pages
 ```
