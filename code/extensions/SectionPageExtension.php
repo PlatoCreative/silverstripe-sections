@@ -113,17 +113,27 @@ class SectionPageExtension extends DataExtension
                         ->filter(
                             array(
                                 'ClassName' => $ClassName,
-                                'AdminTitle' => $AdminTitle
+                                'UniqueConfigTitle' => $AdminTitle
                             )
                         );
-                    if ($Section->Count() && $ShareStatus == 'shared') {
-                        $this->owner->Sections()->add($section->ID);
+                    if ($Section->Count()){
+                            continue;
+                    }
+                    $ExistingSection = $ClassName::get()->filter(
+                        array(
+                            'ClassName' => $ClassName,
+                            'UniqueConfigTitle' => $AdminTitle
+                        )
+                    )->first();
+                    if($ExistingSection && $ShareStatus == 'shared') {
+                        $this->owner->Sections()->add($ExistingSection);
                     }else{
-                        $section = $ClassName::create();
-                        $section->AdminTitle = $AdminTitle;
-                        $section->Public = true;
-                        $section->Write();
-                        $this->owner->Sections()->add($section);
+                        $newSection = $ClassName::create();
+                        $newSection->UniqueConfigTitle = $AdminTitle;
+                        $newSection->AdminTitle = $AdminTitle;
+                        $newSection->Public = true;
+                        $newSection->Write();
+                        $this->owner->Sections()->add($newSection);
                     }
                 }
             }
@@ -170,19 +180,10 @@ class SectionPageExtension extends DataExtension
                     $AvailableTypes[$key]['limit_reached'] = true;
                 }
             }
-
         }
 
         return $AvailableTypes;
     }
-
-    // public function Sections()
-    // {
-    //     $data = array(
-    //         'Sections' => $this->Sections()
-    //     );
-    //     return $data->renderWith('Sections');
-    // }
 
     public function LinkURL()
     {

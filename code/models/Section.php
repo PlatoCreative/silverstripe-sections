@@ -28,7 +28,8 @@ class Section extends DataObject implements PermissionProvider
      * @var array
      */
     private static $db = array(
-        'AdminTitle' => 'Varchar(30)',
+        'UniqueConfigTitle' => 'Varchar(100)', // store the original AdminTitle determined by config here for filtering
+        'AdminTitle' => 'Varchar(100)',
         'MenuTitle' => 'Varchar(30)',
         'Public' => 'Boolean',
         'Style' => 'Text',
@@ -58,6 +59,7 @@ class Section extends DataObject implements PermissionProvider
                 "Root",
                 $tabMain = new Tab(
                     'Main',
+                    HiddenField::create('UniqueConfigTitle'),
                     TextField::create(
                         'AdminTitle',
                         'Admin title'
