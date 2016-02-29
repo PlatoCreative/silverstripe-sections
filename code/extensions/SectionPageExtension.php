@@ -32,7 +32,7 @@ class SectionPageExtension extends DataExtension
      * CMS Fields
      * @return FieldList
      */
-    function updateCMSFields(FieldList $fields)
+    public function updateCMSFields(FieldList $fields)
     {
         if (!Permission::check("VIEW_SECTIONS")) {
             return $fields;
