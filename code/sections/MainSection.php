@@ -47,8 +47,4 @@ class MainSection extends Section
             return $page->renderWith($this->Render());
         }
     }
-
-    public function GridFieldRowClasses(){
-        return array('disabled', 'main');
-    }
 }

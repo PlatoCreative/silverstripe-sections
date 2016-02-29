@@ -1,7 +1,3 @@
-.ss-gridfield-item.disabled td:not(.col-reorder){
-    color: #aaa;
-}
-
-.ss-gridfield-item.disabled .col-buttons .action{
+.ss-gridfield-item.preset .col-buttons .action{
     display: none!important;
 }

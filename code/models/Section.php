@@ -181,6 +181,9 @@ class Section extends DataObject implements PermissionProvider
      * @return boolean
      */
     public function canDelete($member = null) {
+        if ($this->UniqueConfigTitle){
+            return false;
+        }
         return Permission::check('DELETE_SECTIONS', 'any', $member);
     }
 
@@ -264,5 +267,13 @@ class Section extends DataObject implements PermissionProvider
         if($this->Public || $access){
             return $this->renderWith($this->Render());
         }
+    }
+
+    public function GridFieldRowClasses(){
+        if ($this->UniqueConfigTitle){
+            return array('preset');
+        }
+        return array();
+
     }
 }
