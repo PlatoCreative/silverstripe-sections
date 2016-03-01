@@ -24,7 +24,7 @@ class MainSection extends Section
      * CMS Fields
      * @return FieldList
      */
-    function getCMSFields()
+    public function getCMSFields()
     {
         $fields = parent::getCMSFields();
         $fields->removeByName(array('Main','AdminTitle','MenuTitle','Public'));
