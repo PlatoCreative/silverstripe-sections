@@ -12,8 +12,8 @@
   ],
   "require":
   {
-    "silverstripe/framework": "3.2.*",
-    "silverstripe/cms": "3.2.*",
+    "silverstripe/framework": "^3.2",
+    "silverstripe/cms": "^3.2",
     "bummzack/sortablefile": "^1.2",
     "unclecheese/display-logic": "^1",
     "silverstripe-australia/gridfieldextensions": "^1.3",
