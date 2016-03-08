@@ -30,14 +30,26 @@ class SectionsBanner extends DataObject
         "Content" => "Text",
     );
 
+    /**
+     * Has_one relationship
+     * @var array
+     */
     private static $has_one = array(
         "Image" => "Image"
     );
 
+    /**
+     * Many_many relationship
+     * @var array
+     */
     private static $many_many = array(
         "Links" => "Link"
     );
 
+    /**
+     * {@inheritdoc }
+     * @var array
+     */
     private static $many_many_extraFields = array(
         'Links' => array(
             'Sort' => 'Int'
@@ -50,12 +62,11 @@ class SectionsBanner extends DataObject
         "NiceStatus" => "Status"
     );
 
+    /**
+     * CMS Fields
+     * @return FieldList
+     */
     public function getCMSFields() {
-        $linksGridConfig = GridFieldConfig_RelationEditor::create();
-        if ($this->Links()->Count() > 0) {
-            $linksGridConfig->addComponent(new GridFieldOrderableRows());
-        }
-
         $fields = parent::getCMSFields();
         $fields->addFieldsToTab(
             "Root.Main",
@@ -86,6 +97,19 @@ class SectionsBanner extends DataObject
                     'Image',
                     'Image'
                 )->setFolderName('Banner')
+            )
+        );
+        $linksGridConfig = GridFieldConfig_RelationEditor::create();
+        if ($this->Links()->Count() > 0) {
+            $linksGridConfig->addComponent(new GridFieldOrderableRows());
+        }
+        $fields->addFieldToTab(
+            'Root.Links',
+            GridField::create(
+                'Links',
+                'Link(s)',
+                $this->Links(),
+                $linksGridConfig
             )
         );
         return $fields;
