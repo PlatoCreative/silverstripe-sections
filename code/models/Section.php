@@ -68,7 +68,7 @@ class Section extends DataObject implements PermissionProvider
                     CheckboxField::create(
                         'ShowInMenus',
                         'Show in menus',
-                        1
+                        0
                     ),
                     DisplayLogicWrapper::create(
                         TextField::create(
@@ -265,6 +265,7 @@ class Section extends DataObject implements PermissionProvider
         $member = Member::currentUser();
         $access = Permission::checkMember($member, 'CMS_ACCESS');
         if($this->Public || $access){
+            $this->CurrentPage = Director::get_current_page();
             return $this->renderWith($this->Render());
         }
     }
