@@ -40,6 +40,14 @@ class SectionsPerson extends Dataobject
         'Image' => 'Image'
     );
 
+    private static $summary_fields = array(
+        "Image.CMSThumbnail" => "Image",
+        "Title" => "Title",
+        "Email" => "Email",
+        "Phone" => "Phone",
+        "Mobile" => "Mobile"
+    );
+
     /**
      * CMS Fields
      * @return array
