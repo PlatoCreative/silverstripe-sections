@@ -140,6 +140,10 @@ class SectionPageExtension extends DataExtension
         }
     }
 
+    /**
+     * Lists all sections types and their settings relative to the current page type.
+     * @return array
+     */
     public function AvailableSectionTypes()
     {
         $AvailableTypes = ClassInfo::subclassesfor('Section');
@@ -185,6 +189,10 @@ class SectionPageExtension extends DataExtension
         return $AvailableTypes;
     }
 
+    /**
+     * Returns page link.  Used for link section so template does have to check for 2 variables
+     * @return string
+     */
     public function LinkURL()
     {
         return $this->owner->Link();
