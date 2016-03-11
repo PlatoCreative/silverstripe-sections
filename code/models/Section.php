@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * Creates a base object to be extended upon.  This section is not usable by itself.
  *
  * @package silverstripe
  * @subpackage sections
@@ -163,6 +163,7 @@ class Section extends DataObject implements PermissionProvider
 
     /**
      * Viewing Permissions
+     * @return boolean
      */
     public function canView($member = null) {
         return Permission::check('VIEW_SECTIONS', 'any', $member);
