@@ -266,7 +266,7 @@ class Section extends DataObject implements PermissionProvider
         $member = Member::currentUser();
         $access = Permission::checkMember($member, 'CMS_ACCESS');
         if($this->Public || $access){
-            $this->CurrentPage = Director::get_current_page();
+            $this->CurrentPage = Controller::curr();
             return $this->renderWith($this->Render());
         }
     }
