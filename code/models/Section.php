@@ -300,27 +300,9 @@ class Section extends DataObject implements PermissionProvider
             if (!class_exists($controllerClass)) {
                 throw new Exception("Could not find controller class for $this->classname");
             }
-            $controller = Injector::inst()->create($controllerClass, $this);
-            $controller_methods = new ReflectionClass($controllerClass);
             $data = array();
-            $ignore_methods =  array(
-                '__contruct',
-                '__destruct',
-                'index',
-                'init'
-            );
-            foreach ($controller_methods->getMethods() as $method) {
-                $method_name = $method->name;
-                if ($method->class != $controllerClass) {
-                    continue;
-                }
-                if (in_array($method_name, $ignore_methods)) {
-                    continue;
-                }
-                $data[$method_name] = $controller->$method_name();
-
-            }
             $data['CurrentPage'] = Controller::curr();
+            $data['Controller'] = Injector::inst()->create($controllerClass, $this);
             return $this->customise(new arrayData($data))->renderWith($this->Render());
         }
     }
