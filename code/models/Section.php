@@ -286,12 +286,21 @@ class Section extends DataObject implements PermissionProvider
         );
     }
 
+    /**
+     * Access current page scope from section templates with $CurrentPage
+     *
+     * @return Controller
+     */
+    public function getCurrentPage()
+    {
+        return Controller::curr();
+    }
+
     public function Layout()
     {
         $member = Member::currentUser();
         $access = Permission::checkMember($member, 'CMS_ACCESS');
         if($this->Public || $access){
-            $this->CurrentPage = Controller::curr();
             return $this->renderWith($this->Render());
         }
     }

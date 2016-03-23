@@ -16,7 +16,8 @@ class Section_Controller extends Controller
              $this->section = $section;
              $this->failover = $section;
          }
-
+         $this->CurrentPage = Controller::curr();
+         Debug::dump($section);
          parent::__contruct();
      }
 
@@ -39,13 +40,15 @@ class Section_Controller extends Controller
         }
         return Controller::curr()->Link($segment);
     }
+
     /**
-     * @return string - link to page this section is on
+     * Access current page scope from section templates with $CurrentPage
+     *
+     * @return Controller
      */
-    public function pageLink()
+    public function getCurrentPage()
     {
-        $parts = explode('/section/', $this->Link());
-        return isset($parts[0]) ? $parts[0] : null;
+        return Controller::curr();
     }
 
      public function getSection()

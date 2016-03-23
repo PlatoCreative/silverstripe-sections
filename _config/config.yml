@@ -11,7 +11,7 @@ ContentController:
   extensions:
     - SectionContentControllerExtension
   url_handlers:
-    'section/$ID!': 'handleSection'
+    'section/$SECTIONNAME!/$ACTION!': 'handleSection'
 Injector:
   GridField:
     class: RowExtraClassesGridField
