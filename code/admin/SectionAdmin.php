@@ -27,5 +27,4 @@ class SectionAdmin extends ModelAdmin
      */
     private static $menu_title = 'All Sections';
 
-
 }
