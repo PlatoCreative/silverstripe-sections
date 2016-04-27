@@ -74,7 +74,7 @@ class SectionsListItem extends DataObject
 
     public function Anchor(){
         if ($this->Title) {
-            return strtolower(str_replace(' ','',$this->Title));
+            return strtolower(trim(preg_replace('/[^a-zA-Z0-9]+/', '-',$this->Title), '-'));
         }
         return false;
     }

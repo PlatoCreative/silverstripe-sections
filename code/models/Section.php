@@ -231,7 +231,7 @@ class Section extends DataObject implements PermissionProvider
      */
     public function Anchor(){
         if ($this->MenuTitle && $this->ShowInMenus) {
-            return strtolower(str_replace(' ','',$this->MenuTitle));
+            return strtolower(trim(preg_replace('/[^a-zA-Z0-9]+/', '-',$this->MenuTitle), '-'));
         }
         return false;
     }

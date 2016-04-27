@@ -122,7 +122,7 @@ class SectionsPerson extends Dataobject
 
     public function Anchor(){
         if ($this->Name) {
-            return strtolower(str_replace(' ','',$this->Name));
+            return strtolower(trim(preg_replace('/[^a-zA-Z0-9]+/', '-',$this->Name), '-'));
         }
         return false;
     }
