@@ -51,6 +51,9 @@ class BannerSection extends Section
                 $bannerGridConfig
             )
         );
+
+        $this->extend('UpdateCMSFields', $fields);
+        
         return $fields;
     }
 }

@@ -99,6 +99,9 @@ class LinkSection extends Section
                 )->displayIf("LinkType")->isEqualTo("specify")->end()
             )
         );
+
+        $this->extend('UpdateCMSFields', $fields);
+        
         return $fields;
     }
 

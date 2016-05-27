@@ -40,6 +40,9 @@ class BreadcrumbSection extends Section
                 )
             )
         );
+
+        $this->extend('UpdateCMSFields', $fields);
+        
         return $fields;
     }
 }

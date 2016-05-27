@@ -51,6 +51,9 @@ class ListSection extends Section
                 $listGridConfig
             )
         );
+
+        $this->extend('UpdateCMSFields', $fields);
+        
         return $fields;
     }
 }

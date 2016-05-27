@@ -39,6 +39,9 @@ class QuoteSection extends Section
                 ->setDescription('Who cited/quoted this?')
             )
         );
+
+        $this->extend('UpdateCMSFields', $fields);
+        
         return $fields;
     }
 }
