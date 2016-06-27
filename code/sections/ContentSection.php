@@ -16,7 +16,7 @@ class ContentSection extends Section
      * @var array
      */
     private static $db = array(
-        'Title' => 'Varchar(40)',
+        'Title' => 'Text',
         'Content' => 'HTMLText'
     );
 
