@@ -26,7 +26,7 @@ class SectionsListItem extends DataObject
     private static $db = array(
         "AdminTitle" => "Varchar(50)",
         "Status" => "Boolean",
-        "Title" => "Varchar(100)",
+        "Title" => "Text",
         "Content" => "HTMLText",
     );
 
@@ -65,6 +65,7 @@ class SectionsListItem extends DataObject
                 )
             )
         );
+        $this->extend('updateCMSFields', $fields);
         return $fields;
     }
 
