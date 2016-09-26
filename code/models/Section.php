@@ -59,7 +59,7 @@ class Section extends DataObject implements PermissionProvider
      * @return FieldList
      */
     public function getCMSFields() {
-        return new FieldList(
+        $fields = new FieldList(
             $rootTab = new TabSet(
                 "Root",
                 $tabMain = new Tab(
@@ -100,6 +100,8 @@ class Section extends DataObject implements PermissionProvider
                 )
             )
         );
+        $this->extend('updateCMSFields', $fields);
+        return $fields;
     }
 
     /**
