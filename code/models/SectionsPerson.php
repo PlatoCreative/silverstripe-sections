@@ -81,6 +81,7 @@ class SectionsPerson extends Dataobject
                 ),
             )
         );
+        $this->extend('updateCMSFields', $fields);
         return $fields;
     }
 

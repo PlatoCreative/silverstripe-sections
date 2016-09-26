@@ -63,6 +63,7 @@ class SectionsLink extends Link
                 )
             )
         );
+        $this->extend('updateCMSFields', $fields);
         return $fields;
     }
 }

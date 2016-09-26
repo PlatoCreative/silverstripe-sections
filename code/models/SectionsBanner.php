@@ -112,6 +112,7 @@ class SectionsBanner extends DataObject
                 $linksGridConfig
             )
         );
+        $this->extend('updateCMSFields', $fields);
         return $fields;
     }
 
