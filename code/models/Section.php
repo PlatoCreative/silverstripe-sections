@@ -58,46 +58,55 @@ class Section extends DataObject implements PermissionProvider
      * CMS Fields
      * @return FieldList
      */
-    public function getCMSFields() {
-        $fields = new FieldList(
-            $rootTab = new TabSet(
-                "Root",
-                $tabMain = new Tab(
-                    'Main',
-                    HiddenField::create('UniqueConfigTitle'),
-                    TextField::create(
-                        'AdminTitle',
-                        'Admin title'
-                    )
-                    ->setDescription('This field is for adminisration use only and will not display on the site.'),
-                    CheckboxField::create(
-                        'ShowInMenus',
-                        'Show in menus',
-                        0
-                    ),
-                    DisplayLogicWrapper::create(
-                        TextField::create(
-                            'MenuTitle',
-                            'Navigation label'
-                        )
-                    )
-                    ->displayIf("ShowInMenus")->isChecked()->end()
-                ),
-                $tabSettings = new Tab(
-                    'Settings',
-                    CheckboxField::create(
-                        'Public',
-                        'Public',
-                        1
-                    )
-                    ->setDescription('Is this section publicly accessible?.'),
-                    DropdownField::create(
-                        'Style',
-                        'Select a style',
-                        $this->ConfigStyles
-                    )
-                    ->setEmptyString('Default')
+    public function getCMSFields()
+    {
+        $fields = $this->scaffoldFormFields(
+            array(
+                // Don't allow has_many/many_many relationship editing before the record is first saved
+                'includeRelations' => ($this->ID > 0),
+                'tabbed' => true,
+                'ajaxSafe' => true
+            )
+        );
+
+        $fields->addFieldsToTab(
+            'Root.Main',
+            array(
+                HiddenField::create('UniqueConfigTitle'),
+                TextField::create(
+                    'AdminTitle',
+                    'Admin title'
                 )
+                ->setDescription('This field is for adminisration use only and will not display on the site.'),
+                CheckboxField::create(
+                    'ShowInMenus',
+                    'Show in menus',
+                    0
+                ),
+                DisplayLogicWrapper::create(
+                    TextField::create(
+                        'MenuTitle',
+                        'Navigation label'
+                    )
+                )
+                ->displayIf("ShowInMenus")->isChecked()->end()
+            )
+        );
+        $fields->addFieldsToTab(
+            'Root.Settings',
+            array(
+                CheckboxField::create(
+                    'Public',
+                    'Public',
+                    1
+                )
+                ->setDescription('Is this section publicly accessible?.'),
+                DropdownField::create(
+                    'Style',
+                    'Select a style',
+                    $this->ConfigStyles
+                )
+                ->setEmptyString('Default')
             )
         );
         $this->extend('updateCMSFields', $fields);
