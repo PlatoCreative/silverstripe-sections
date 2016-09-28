@@ -17,7 +17,6 @@ class Section_Controller extends Controller
              $this->failover = $section;
          }
          $this->CurrentPage = Controller::curr();
-         Debug::dump($section);
          parent::__contruct();
      }
 

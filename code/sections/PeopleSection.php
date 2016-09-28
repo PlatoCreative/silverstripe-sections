@@ -69,8 +69,8 @@ class PeopleSection extends Section
             )
         );
 
-        $this->extend('UpdateCMSFields', $fields);
-        
+        $this->extend('updateCMSFields', $fields);
+
         return $fields;
     }
 }
