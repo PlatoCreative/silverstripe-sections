@@ -68,7 +68,7 @@ class Section extends DataObject implements PermissionProvider
                 'ajaxSafe' => true
             )
         );
-
+        $field->removeByName('MenuTitle');
         $fields->addFieldsToTab(
             'Root.Main',
             array(

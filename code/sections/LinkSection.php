@@ -60,6 +60,15 @@ class LinkSection extends Section
             $TeaserConfig->addComponent(new GridFieldOrderableRows());
         }
 
+        $fields->removeByName(
+            array(
+                'ParentPageID',
+                'ParentPage',
+                'LinkLimit',
+                'LinkList'
+            )
+        );
+
         $fields->addFieldsToTab(
             'Root.Main',
             array(
