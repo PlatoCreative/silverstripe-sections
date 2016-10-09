@@ -49,6 +49,8 @@ class Section extends DataObject implements PermissionProvider
         'Pages' => 'Page'
     );
 
+    private static $base_class = 'section';
+
     /**
      * @var SectionController
      */
@@ -265,7 +267,7 @@ class Section extends DataObject implements PermissionProvider
      * @return string $classes
      */
     public function Classes(){
-        $classes = array('section');
+        $classes = array($this->config()->get('base_class'));
         if ($this->Style) {
             $classes[] = strtolower($this->Style).'-'.strtolower(preg_replace('/([a-z]+)([A-Z0-9])/', '$1-$2', get_called_class()));
         }else{
