@@ -46,7 +46,7 @@ class PeopleSection extends Section
     {
         $fields = parent::getCMSFields();
 
-        $PeopleConfig = GridFieldConfig_RecordEditor::create();
+        $PeopleConfig = GridFieldConfig_RecordEditor::create(100);
         if ($this->People()->Count() > 0) {
             $PeopleConfig->addComponent(new GridFieldOrderableRows());
         }
