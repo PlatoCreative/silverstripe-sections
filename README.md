@@ -4,7 +4,7 @@ This module splits pages into reusable sections that can used across multiple pa
 ## Installation
 Composer is the recommended way of installing SilverStripe modules.
 ```
-composer require coreiho/silverstripe-sections 1.*
+composer require plato-creative/silverstripe-sections 1.*
 ```
 
 ### Customisation
